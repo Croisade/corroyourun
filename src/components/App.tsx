@@ -2,27 +2,22 @@
 
 import React, {useState} from 'react';
 import {View, Text, Button, StyleSheet, StatusBar} from 'react-native';
-import MainContainer from './navigation/MainContainer';
+import {SafeAreaView} from 'react-native-safe-area-context';
 
-const App = () => {
-  const [count, setCount] = useState(0);
+import Navigation from './navigation/Navigation';
 
-  return (
-    <View style={styles.container}>
-      <Text>You clicked {count} times</Text>
-      <Button onPress={() => setCount(count + 1)} title="Click me!" />
-    </View>
-  );
-};
+// const App = () => {
+//   const [count, setCount] = useState(0);
+
+//   return (
+//     <View style={styles.container}>
+//       <Text>You clicked {count} times</Text>
+//       <Button onPress={() => setCount(count + 1)} title="Click me!" />
+//     </View>
+//   );
+// };
 
 // React Native Styles
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-});
 
 const HelloWorldApp = () => {
   return (
@@ -32,11 +27,18 @@ const HelloWorldApp = () => {
         backgroundColor="transparent"
         barStyle="dark-content"
       />
-      <MainContainer />
+      <SafeAreaView style={styles.root}>
+        <Navigation />
+      </SafeAreaView>
+      {/* <MainContainer /> */}
     </>
-    // <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-    //   <Text>Hello, world!</Text>
-    // </View>
   );
 };
+
+const styles = StyleSheet.create({
+  root: {
+    flex: 1,
+    // backgroundColor: '#F9FBFC',
+  },
+});
 export default HelloWorldApp;
