@@ -1,8 +1,8 @@
 import {useNavigation} from '@react-navigation/native';
 import React, {useState} from 'react';
 import {View, Text, Image, StyleSheet, ScrollView} from 'react-native';
-import CustomInput from './CustomInput';
-import CustomButton from './LoginButton';
+import CustomInput from '../Common/CustomInput';
+import CustomButton from '../Common/Button';
 
 export default function SignUpScreen() {
   const [email, setEmail] = useState('');

@@ -1,16 +1,8 @@
 import {useNavigation} from '@react-navigation/native';
 import React, {useState} from 'react';
-import {
-  View,
-  Text,
-  Image,
-  StyleSheet,
-  useWindowDimensions,
-  ScrollView,
-} from 'react-native';
-import Logo from '../../../assets/images/logo.png';
-import CustomInput from './CustomInput';
-import CustomButton from './LoginButton';
+import {View, Text, StyleSheet, ScrollView} from 'react-native';
+import CustomInput from '../Common/CustomInput';
+import CustomButton from '../Common/Button';
 
 export default function SignUpScreen() {
   const [username, setUsername] = useState('');

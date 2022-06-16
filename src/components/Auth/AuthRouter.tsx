@@ -4,12 +4,13 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 
 import MainContainer from '../navigation/MainContainer';
-import SignInScreen from '../Auth/SignInScreen';
-import SignUpScreen from '../Auth/SignUpScreen';
-import ConfirmEmailScreen from '../Auth/ConfirmEmailScreen';
-import ForgotPasswordScreen from '../Auth/ForgotPasswordScreen';
-import ResetPasswordScreen from '../Auth/ResetPasswordScreen';
-import HomeScreen from './HomeScreen';
+import SignInScreen from './SignInScreen';
+import SignUpScreen from './SignUpScreen';
+import ConfirmEmailScreen from './ConfirmEmailScreen';
+import ForgotPasswordScreen from './ForgotPasswordScreen';
+import ResetPasswordScreen from './ResetPasswordScreen';
+import HomeScreen from '../navigation/HomeScreen';
+import Router from '@app/components/Router';
 
 const Stack = createNativeStackNavigator();
 
@@ -22,7 +23,7 @@ export default function Navigation() {
         <Stack.Screen name="ConfirmEmail" component={ConfirmEmailScreen} />
         <Stack.Screen name="ForgotPassword" component={ForgotPasswordScreen} />
         <Stack.Screen name="NewPassword" component={ResetPasswordScreen} />
-        <Stack.Screen name="Home" component={HomeScreen} />
+        <Stack.Screen name="Home" component={Router} />
       </Stack.Navigator>
     </NavigationContainer>
   );

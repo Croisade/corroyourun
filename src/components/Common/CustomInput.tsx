@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {View, TextInput, StyleSheet} from 'react-native';
 
-export default function SettingsScreen({
+export default function Input({
   value,
   setValue,
   placeHolder,
@@ -29,7 +29,7 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: 'White',
     width: '100%',
-    borderColor: '#e8e8e8',
+    borderColor: '#051C60',
     borderWidth: 1,
     borderRadius: 5,
     paddingHorizontal: 10,

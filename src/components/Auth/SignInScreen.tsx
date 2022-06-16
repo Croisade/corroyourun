@@ -1,15 +1,14 @@
 import React, {useState} from 'react';
 import {
   View,
-  Text,
   Image,
   StyleSheet,
   useWindowDimensions,
   ScrollView,
 } from 'react-native';
-import Logo from '../../../assets/images/logo.png';
-import CustomInput from './CustomInput';
-import CustomButton from './LoginButton';
+import Logo from '../../images/logo.png';
+import CustomInput from '../Common/CustomInput';
+import CustomButton from '../Common/Button';
 import {useNavigation} from '@react-navigation/native';
 
 export default function SettingsScreen() {

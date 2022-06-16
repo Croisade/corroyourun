@@ -4,7 +4,8 @@ import React, {useState} from 'react';
 import {View, Text, Button, StyleSheet, StatusBar} from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 
-import Navigation from './navigation/Navigation';
+import AuthRouter from './Auth/AuthRouter';
+import RunsScreen from './Runs/RunsScreen';
 
 // const App = () => {
 //   const [count, setCount] = useState(0);
@@ -28,7 +29,8 @@ const HelloWorldApp = () => {
         barStyle="dark-content"
       />
       <SafeAreaView style={styles.root}>
-        <Navigation />
+        {/* <RunsScreen /> */}
+        <AuthRouter />
       </SafeAreaView>
       {/* <MainContainer /> */}
     </>

@@ -2,11 +2,15 @@
 import React from 'react';
 import {Text, StyleSheet, Pressable} from 'react-native';
 
-export default function Button({onPress, text, type}) {
+export default function Button({onPress, text, type, isRounded = false}) {
   return (
     <Pressable
       onPress={onPress}
-      style={[styles.container, styles[`container_${type}`]]}>
+      style={[
+        styles.container,
+        styles[`container_${type}`],
+        isRounded && {borderRadius: 30},
+      ]}>
       <Text style={[styles.text, styles[`text_${type}`]]}>{text}</Text>
     </Pressable>
   );
@@ -22,11 +26,11 @@ const styles = StyleSheet.create({
   },
 
   container_PRIMARY: {
-    backgroundColor: '#3871F3',
+    backgroundColor: '#CC4C33',
   },
 
   container_SECONDARY: {
-    borderColor: '#3871F3',
+    borderColor: '#CC4C33',
     borderWidth: 2,
   },
   container_TERTIARY: {},
@@ -35,7 +39,7 @@ const styles = StyleSheet.create({
     color: 'white',
   },
   text_SECONDARY: {
-    color: '#3871F3',
+    color: '#CC4C33',
   },
   text_TERTIARY: {
     fontWeight: 'bold',
