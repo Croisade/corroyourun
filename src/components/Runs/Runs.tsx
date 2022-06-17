@@ -1,5 +1,6 @@
 import React from 'react';
 import {StyleSheet, Text, useWindowDimensions, View} from 'react-native';
+import {COLORS} from '@/components/theme';
 
 export default function HomeScreen() {
   const {height} = useWindowDimensions();
@@ -77,7 +78,7 @@ const styles = StyleSheet.create({
     paddingBottom: 5,
   },
   runContainer: {
-    backgroundColor: '#fff',
+    backgroundColor: COLORS.background,
     borderColor: '#CC4C33',
     borderWidth: 1,
     paddingLeft: 17,

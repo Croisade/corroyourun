@@ -9,7 +9,7 @@ import RunsScreen from '@/components/Runs/RunsScreen';
 import CalendarScreen from '@/components/Calendar/CalendarScreen';
 import TrackingScreen from '@/components/Tracking/TrackingScreen';
 import SettingsScreen from '@/components/Settings/SettingsScreen';
-import {View} from 'react-native';
+import {COLORS} from '@/components/theme';
 
 const Tab = createBottomTabNavigator();
 
@@ -19,6 +19,8 @@ export default function RunsRouter() {
       <Tab.Navigator
         initialRouteName={routes.RUNS}
         screenOptions={({route}) => ({
+          // containerStyle: {backgroundColor: COLORS.background},
+          // backgroundColor: COLORS.background,
           tabBarStyle: {backgroundColor: '#F3EEED'},
           headerShown: false,
           tabBarIcon: () => {

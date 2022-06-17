@@ -2,6 +2,7 @@ import React from 'react';
 import {View, Text, Alert, StyleSheet, useWindowDimensions} from 'react-native';
 import Runs from './Runs';
 import Button from '../Common/Button';
+import {COLORS} from '@/components/theme';
 
 export default function HomeScreen() {
   const {height} = useWindowDimensions();
@@ -54,13 +55,14 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     // justifyContent: 'space-between',
-    backgroundColor: '#fff',
+    backgroundColor: COLORS.background,
+    height: '100%',
     // padding: 20,
     // margin: 10,
   },
   top: {
     // flex: 0.3,
-    backgroundColor: '#fff',
+    // backgroundColor: '#fff',
     borderTopColor: 'transparent',
     borderLeftColor: 'transparent',
     borderRightColor: 'transparent',
