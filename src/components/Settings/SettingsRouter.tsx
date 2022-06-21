@@ -1,16 +1,27 @@
+import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import * as React from 'react';
 import {View, Text} from 'react-native';
+import HomeScreen from '../screens/HomeScreen';
+import ProfileScreen from '@/components/Settings/ProfileScreen';
+import SettingsScreen from '@/components/Settings/SettingsScreen';
 
-export default function DetailsScreen({navigation}) {
+export default function SettingsRouter() {
   const SettingsStack = createStackNavigator();
   return (
-    <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
-      <Text
-        onPress={() => navigation.navigate('Home')}
-        style={{fontSize: 26, fontWeight: 'bold'}}>
-        Details Screen
-      </Text>
-    </View>
+    <SettingsStack.Navigator
+      initialRouteName="SettingsHome"
+      screenOptions={{headerShown: true}}>
+      <SettingsStack.Screen
+        name="SettingsHome"
+        component={SettingsScreen}
+        options={{headerShown: false}}
+      />
+      <SettingsStack.Screen
+        name="Profile"
+        component={ProfileScreen}
+        options={{title: 'Settings', headerTransparent: true}}
+      />
+    </SettingsStack.Navigator>
   );
 }

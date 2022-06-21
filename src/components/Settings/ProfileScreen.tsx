@@ -1,37 +1,28 @@
-import React from 'react';
+import * as React from 'react';
 import {View, Text, StyleSheet} from 'react-native';
+import URLText from '../Common/URlText';
+import {COLORS} from '../theme';
 
-import {COLORS} from '@/components/theme';
-import URLText from '@/components/Common/URlText';
-import CommunityLinks from '@/components/Settings/CommunityLinks';
 import {URL} from '@/constants';
+import CommunityLinks from '@/components/Settings/CommunityLinks';
 
-export default function SettingsScreen({navigation}) {
+export default function ProfileScreen() {
   return (
     <View style={styles.root}>
       <View style={{paddingLeft: 10}}>
-        <Text style={styles.header}>Settings</Text>
-        <Text
-          style={[styles.text, {fontSize: 20, fontWeight: 'bold'}]}
-          onPress={() => navigation.navigate('Profile')}>
-          Profile
-        </Text>
-        <URLText text={'test@email.com'} url={URL.issues} />
-        <View style={styles.horizontalRule} />
+        <Text style={styles.header}>Profile</Text>
 
-        <Text
-          style={[
-            styles.text,
-            {fontSize: 20, fontWeight: 'bold', marginTop: 20, marginBottom: 7},
-          ]}>
-          Support
-        </Text>
-        <CommunityLinks />
-      </View>
-      <View>
+        <Text style={[styles.text]}>Email</Text>
+        <URLText text={'test@email.com'} url={URL.issues} />
+
+        <Text style={[styles.text]}>First Name</Text>
+        <URLText text={'Jamal'} url={URL.issues} />
+
+        <Text style={[styles.text]}>Last Name</Text>
+        <URLText text={'Gardiner'} url={URL.issues} />
+
         <View style={styles.horizontalRule} />
-        <Text style={styles.footer}>Version 1655474877</Text>
-        <Text style={styles.footer}>© CorroYouRun - All Rights Reserved</Text>
+        <CommunityLinks />
       </View>
     </View>
   );
@@ -55,7 +46,11 @@ const styles = StyleSheet.create({
   },
   text: {
     color: COLORS.text,
-    marginBottom: 20,
+    // marginBottom: 20,
+    fontSize: 20,
+    fontWeight: 'bold',
+    marginTop: 20,
+    marginBottom: 7,
   },
   horizontalRule: {
     paddingTop: 10,

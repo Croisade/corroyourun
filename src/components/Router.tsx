@@ -9,6 +9,7 @@ import RunsScreen from '@/components/Runs/RunsScreen';
 import CalendarScreen from '@/components/Calendar/CalendarScreen';
 import TrackingScreen from '@/components/Tracking/TrackingScreen';
 import SettingsScreen from '@/components/Settings/SettingsScreen';
+import SettingsRouter from '@/components/Settings/SettingsRouter';
 import {COLORS} from '@/components/theme';
 
 const Tab = createBottomTabNavigator();
@@ -21,7 +22,7 @@ export default function RunsRouter() {
         screenOptions={({route}) => ({
           // containerStyle: {backgroundColor: COLORS.background},
           // backgroundColor: COLORS.background,
-          tabBarStyle: {backgroundColor: '#F3EEED'},
+          tabBarStyle: {backgroundColor: COLORS.highlight},
           headerShown: false,
           tabBarIcon: () => {
             let iconName = '';
@@ -38,13 +39,13 @@ export default function RunsRouter() {
             }
             // return <Icon name="comments" size={30} color="#900" />;
             // You can return any component that you like here!
-            return <Icon name={iconName} size={30} color="#900" />;
+            return <Icon name={iconName} size={30} color={COLORS.secondary} />;
           },
         })}>
         <Tab.Screen name={routes.RUNS} component={RunsScreen} />
         <Tab.Screen name={routes.CALENDAR} component={CalendarScreen} />
         <Tab.Screen name={routes.TRACKING} component={TrackingScreen} />
-        <Tab.Screen name={routes.SETTINGS} component={SettingsScreen} />
+        <Tab.Screen name={routes.SETTINGS} component={SettingsRouter} />
       </Tab.Navigator>
     </NavigationContainer>
   );
