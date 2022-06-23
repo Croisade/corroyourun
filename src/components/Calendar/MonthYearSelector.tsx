@@ -5,36 +5,13 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 export default function MonthYearSelector({
   text,
-  date,
-  setDate,
-  increment,
-  setIncrement,
   onPressUp,
   onPressDown,
 }: {
   text: string | number;
-  date: any;
-  setDate: any;
-  increment: number;
-  setIncrement: React.Dispatch<React.SetStateAction<number>>;
   onPressUp: () => void;
   onPressDown: () => void;
 }) {
-  const monthFull = [
-    'January',
-    'February',
-    'March',
-    'April',
-    'May',
-    'June',
-    'July',
-    'August',
-    'September',
-    'October',
-    'November',
-    'December',
-  ];
-
   return (
     <View style={styles.root}>
       <Pressable onPress={onPressUp}>

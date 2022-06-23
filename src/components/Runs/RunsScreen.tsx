@@ -4,10 +4,10 @@ import Runs from './Runs';
 import Button from '../Common/Button';
 import {COLORS} from '@/components/theme';
 
-export default function HomeScreen() {
+export default function HomeScreen({navigation}) {
   const {height} = useWindowDimensions();
   const onRunButtonPressed = () => {
-    console.warn('it works');
+    navigation.navigate('Timer');
   };
 
   return (
@@ -34,7 +34,7 @@ export default function HomeScreen() {
           }}>
           <Button
             onPress={onRunButtonPressed}
-            text={'Run'}
+            text={'Start'}
             type={'PRIMARY'}
             isRounded={true}
           />

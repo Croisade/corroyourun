@@ -128,10 +128,6 @@ export default function CalendarScreen() {
         <View style={{flex: 1}}>
           <MonthYearSelector
             text={monthFull[month]}
-            date={date}
-            setDate={setMonth}
-            increment={monthIncrement}
-            setIncrement={setMonthIncrement}
             onPressUp={handleChevronUpPressMonth}
             onPressDown={handleChevronDownPressMonth}
           />
@@ -140,10 +136,6 @@ export default function CalendarScreen() {
         <View style={{flex: 1}}>
           <MonthYearSelector
             text={year}
-            date={date}
-            setDate={setYear}
-            increment={yearIncrement}
-            setIncrement={setYearIncrement}
             onPressUp={handleChevronUpPressYear}
             onPressDown={handleChevronDownPressYear}
           />
