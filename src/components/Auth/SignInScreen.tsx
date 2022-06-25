@@ -5,11 +5,15 @@ import {
   StyleSheet,
   useWindowDimensions,
   ScrollView,
+  TextInput,
+  Text,
 } from 'react-native';
 import Logo from '../../images/logo.png';
 import CustomInput from '../Common/CustomInput';
 import CustomButton from '../Common/Button';
+import {COLORS} from '@/components/theme';
 import {useNavigation} from '@react-navigation/native';
+import {Formik} from 'formik';
 
 export default function SettingsScreen() {
   const [username, setUsername] = useState('');
@@ -39,29 +43,53 @@ export default function SettingsScreen() {
 
   return (
     <ScrollView>
-      <View style={styles.root}>
-        <Image
+      <View style={[styles.root, {height: height}]}>
+        {/* <Image
           source={Logo}
           style={(styles.logo, {height: height * 0.3})}
           resizeMode="contain"
-        />
-        <CustomInput
-          value={username}
-          setValue={setUsername}
-          placeHolder={'username'}
-          secureTextEntry={false}
-        />
-        <CustomInput
-          value={password}
-          setValue={setPassword}
-          placeHolder={'password'}
-          secureTextEntry={true}
-        />
-        <CustomButton
-          onPress={onSignInPressed}
-          text={'Log In'}
-          type={'PRIMARY'}
-        />
+        /> */}
+
+        <View style={styles.top}>
+          <Text style={styles.logoPlaceholder}>CorroYouRun</Text>
+        </View>
+
+        <View style={styles.form}>
+          <Formik
+            initialValues={{email: '', password: ''}}
+            onSubmit={values => {
+              navigation.navigate('Home');
+              console.log(values);
+            }}>
+            {({handleChange, handleBlur, handleSubmit, values}) => (
+              <View style={{width: '100%'}}>
+                <Text style={styles.text}>Username</Text>
+                <TextInput
+                  style={styles.input}
+                  onChangeText={handleChange('email')}
+                  onBlur={handleBlur('email')}
+                  value={values.email}
+                />
+
+                <Text style={styles.text}>Password</Text>
+                <TextInput
+                  style={styles.input}
+                  onChangeText={handleChange('password')}
+                  onBlur={handleBlur('password')}
+                  value={values.password}
+                  secureTextEntry={true}
+                />
+
+                <CustomButton
+                  onPress={handleSubmit}
+                  text={'Log In'}
+                  type={'PRIMARY'}
+                />
+              </View>
+            )}
+          </Formik>
+        </View>
+
         <CustomButton
           onPress={onForgotPasswordPress}
           text={'Forgot Password?'}
@@ -79,12 +107,48 @@ export default function SettingsScreen() {
 
 const styles = StyleSheet.create({
   root: {
-    alignItems: 'center',
-    padding: 20,
+    backgroundColor: COLORS.background,
+    height: '10%',
+    flex: 1,
   },
   logo: {
     width: '70%',
     maxWidth: 500,
     maxHeight: 200,
+  },
+  input: {
+    width: '100%',
+    borderColor: COLORS.highlight,
+    borderWidth: 1,
+    borderRadius: 5,
+    paddingHorizontal: 10,
+    marginVertical: 5,
+    color: COLORS.text,
+  },
+  text: {
+    color: COLORS.text,
+    fontWeight: 'bold',
+    fontSize: 16,
+  },
+  form: {
+    paddingTop: 20,
+    width: '80%',
+    alignSelf: 'center',
+  },
+  top: {
+    borderTopColor: 'transparent',
+    borderLeftColor: 'transparent',
+    borderRightColor: 'transparent',
+    borderBottomColor: '#CC4C33',
+    borderWidth: 5,
+    maxHeight: 75,
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  logoPlaceholder: {
+    color: '#CC4C33',
+    fontWeight: 'bold',
+    fontSize: 20,
   },
 });

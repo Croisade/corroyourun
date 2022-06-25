@@ -36,7 +36,7 @@ export default function TimerScreen({navigation}) {
   const handleTimerEnd = (t: number) => {
     setTime(t);
     setHasStarted(false);
-    navigation.navigate('Information', {time: timeRef.current});
+    navigation.navigate('Summary', {time: timeRef.current});
   };
 
   return (

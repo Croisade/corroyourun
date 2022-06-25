@@ -2,7 +2,7 @@ import {createStackNavigator} from '@react-navigation/stack';
 import * as React from 'react';
 import RunsScreen from '@/components/Runs/RunsScreen';
 import TimerScreen from '@/components/Runs/TimerScreen';
-import InformationScreen from '@/components/Runs/InformationScreen';
+import SummaryScreen from '@/components/Runs/SummaryScreen';
 
 export default function RunsRouter() {
   const RunsStack = createStackNavigator();
@@ -21,9 +21,9 @@ export default function RunsRouter() {
         options={{title: 'Start', headerTransparent: true}}
       />
       <RunsStack.Screen
-        name="Information"
-        component={InformationScreen}
-        options={{title: 'Information', headerTransparent: true}}
+        name="Summary"
+        component={SummaryScreen}
+        options={{title: 'Timer', headerTransparent: true}}
       />
     </RunsStack.Navigator>
   );

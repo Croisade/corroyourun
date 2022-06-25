@@ -1,0 +1,228 @@
+import React, {useState} from 'react';
+import {View, Text, StyleSheet, TextInput, Pressable} from 'react-native';
+import {COLORS} from '@/components/theme';
+import {Formik} from 'formik';
+import Button from '@/components/Common/Button';
+
+export default function InformationScreen({route, navigation}) {
+  const [walkFocus, setWalkFocus] = useState(false);
+  const [runFocus, setRunFocus] = useState(true);
+  const [bikeFocus, setBikeFocus] = useState(false);
+
+  const handleWalkPress = () => {
+    setWalkFocus(true);
+    setRunFocus(false);
+    setBikeFocus(false);
+  };
+
+  const handleRunPress = () => {
+    setWalkFocus(false);
+    setRunFocus(true);
+    setBikeFocus(false);
+  };
+
+  const handleBikePress = () => {
+    setWalkFocus(false);
+    setRunFocus(false);
+    setBikeFocus(true);
+  };
+
+  const {time} = route.params;
+  return (
+    <View style={styles.root}>
+      <Text style={styles.header}>Summary</Text>
+
+      <View
+        style={{
+          width: 260,
+          height: 45,
+        }}>
+        <View
+          style={{
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+            backgroundColor: COLORS.highlight,
+            borderRadius: 300,
+            width: 260,
+            height: 36,
+          }}>
+          {walkFocus ? (
+            <View style={styles.sliderBarBorderFocused}>
+              <Text style={styles.sliderBarFocused}>Walk</Text>
+            </View>
+          ) : (
+            <Pressable onPress={handleWalkPress}>
+              <View style={styles.sliderBarBorderUnfocused}>
+                <Text style={styles.sliderBarUnfocused}>Walk</Text>
+              </View>
+            </Pressable>
+          )}
+
+          {runFocus ? (
+            <View style={styles.sliderBarBorderFocused}>
+              <Text style={styles.sliderBarFocused}>Run</Text>
+            </View>
+          ) : (
+            <Pressable onPress={handleRunPress}>
+              <View style={styles.sliderBarBorderUnfocused}>
+                <Text style={styles.sliderBarUnfocused}>Run</Text>
+              </View>
+            </Pressable>
+          )}
+
+          {bikeFocus ? (
+            <View style={styles.sliderBarBorderFocused}>
+              <Text style={styles.sliderBarFocused}>Bike</Text>
+            </View>
+          ) : (
+            <Pressable onPress={handleBikePress}>
+              <View style={styles.sliderBarBorderUnfocused}>
+                <Text style={styles.sliderBarUnfocused}>Bike</Text>
+              </View>
+            </Pressable>
+          )}
+        </View>
+      </View>
+
+      <View style={styles.timer}>
+        <Text style={styles.timerText}>{time}</Text>
+      </View>
+
+      <View style={{marginTop: 20}}>
+        <Formik
+          initialValues={{distance: '', speed: '', lap: '', incline: ''}}
+          onSubmit={values => console.log(values)}>
+          {({handleChange, handleBlur, handleSubmit, values}) => (
+            <View style={{flexDirection: 'column'}}>
+              <View style={{flex: 1}}>
+                <View style={styles.formView}>
+                  <Text style={styles.text}>Distance</Text>
+                  <TextInput
+                    style={styles.input}
+                    onChangeText={handleChange('distance')}
+                    onBlur={handleBlur('distance')}
+                    value={values.distance}
+                    placeholder="Distance"
+                  />
+                </View>
+                <View style={styles.formView}>
+                  <Text style={styles.text}>Speed</Text>
+                  <TextInput
+                    style={styles.input}
+                    onChangeText={handleChange('speed')}
+                    onBlur={handleBlur('speed')}
+                    value={values.speed}
+                    placeholder="Speed"
+                  />
+                </View>
+                <View style={styles.formView}>
+                  <Text style={styles.text}>Lap</Text>
+                  <TextInput
+                    style={styles.input}
+                    onChangeText={handleChange('lap')}
+                    onBlur={handleBlur('lap')}
+                    value={values.lap}
+                    placeholder="Lap"
+                  />
+                </View>
+                <View style={styles.formView}>
+                  <Text style={styles.text}>Incline</Text>
+                  <TextInput
+                    style={styles.input}
+                    onChangeText={handleChange('incline')}
+                    onBlur={handleBlur('incline')}
+                    value={values.incline}
+                    placeholder="Incline"
+                  />
+                </View>
+
+                <Button onPress={handleSubmit} text="Done" type="PRIMARY" />
+              </View>
+            </View>
+          )}
+        </Formik>
+      </View>
+    </View>
+  );
+}
+
+const styles = StyleSheet.create({
+  root: {
+    backgroundColor: COLORS.background,
+    // height: '100%',
+    flexDirection: 'column',
+    // flexGrow: 1,
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  },
+  header: {
+    fontSize: 26,
+    fontWeight: 'bold',
+    alignSelf: 'center',
+    color: COLORS.text,
+    paddingBottom: 34,
+    paddingTop: 62,
+  },
+  input: {
+    color: 'black',
+    borderColor: COLORS.muted,
+    width: 90,
+    borderWidth: 1,
+    borderRadius: 10,
+    padding: 10,
+  },
+  formView: {
+    flexDirection: 'row',
+    width: 265,
+    justifyContent: 'space-between',
+    marginTop: 10,
+    marginBottom: 10,
+  },
+  timer: {
+    width: 210,
+    height: 75,
+    alignItems: 'center',
+  },
+  timerText: {
+    fontSize: 64,
+    fontWeight: 'bold',
+    color: COLORS.text,
+  },
+  text: {
+    color: COLORS.text,
+    fontSize: 20,
+    fontWeight: 'bold',
+    marginTop: 20,
+    marginBottom: 7,
+  },
+  sliderBarBorderFocused: {
+    height: 45,
+    width: 90,
+    borderRadius: 300,
+    border: 5,
+    borderColor: COLORS.primary,
+    backgroundColor: COLORS.primary,
+    marginTop: -4,
+  },
+  sliderBarFocused: {
+    color: COLORS.background,
+    fontSize: 20,
+    alignSelf: 'center',
+    fontWeight: 'bold',
+    paddingTop: 6,
+  },
+  sliderBarUnfocused: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    color: COLORS.primary,
+    alignSelf: 'center',
+  },
+  sliderBarBorderUnfocused: {
+    backgroundColor: COLORS.background,
+    borderRadius: 300,
+    borderColor: COLORS.primary,
+    borderWidth: 2,
+    width: 80,
+    height: 36,
+  },
+});

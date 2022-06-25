@@ -15,7 +15,7 @@ export default function HomeScreen({navigation}) {
       <View style={styles.top}>
         <Text style={styles.logoPlaceholder}>CorroYouRun</Text>
       </View>
-      <Text>History</Text>
+      <Text style={{backgroundColor: COLORS.background}}>History</Text>
       <View
         style={{
           flexDirection: 'column',
@@ -68,7 +68,7 @@ const styles = StyleSheet.create({
     borderRightColor: 'transparent',
     borderBottomColor: '#CC4C33',
     borderWidth: 5,
-    maxHeight: 100,
+    maxHeight: 75,
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
@@ -76,7 +76,7 @@ const styles = StyleSheet.create({
   logoPlaceholder: {
     color: '#CC4C33',
     fontWeight: 'bold',
-    fontSize: 37,
+    fontSize: 20,
   },
   bottom: {
     flex: 0.3,
