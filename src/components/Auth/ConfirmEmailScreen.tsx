@@ -1,13 +1,18 @@
 import {useNavigation} from '@react-navigation/native';
 import React, {useState} from 'react';
-import {View, Text, Image, StyleSheet, ScrollView} from 'react-native';
-import CustomInput from '../Common/CustomInput';
+import {
+  View,
+  Text,
+  Image,
+  StyleSheet,
+  ScrollView,
+  TextInput,
+} from 'react-native';
+import {Formik} from 'formik';
+import {COLORS} from '@/components/theme';
 import CustomButton from '../Common/Button';
 
 export default function SignUpScreen() {
-  const [email, setEmail] = useState('');
-  const [emailConfirmationCode, setEmailConfirmationCode] = useState('');
-
   const navigation = useNavigation();
 
   const onConfirmEmailPress = () => {
@@ -30,29 +35,45 @@ export default function SignUpScreen() {
     <ScrollView>
       <View style={styles.root}>
         <Text style={styles.title}>Confirm Your Email</Text>
-        <CustomInput
-          value={email}
-          setValue={setEmail}
-          placeHolder={'Email'}
-          secureTextEntry={true}
-        />
-        <CustomInput
-          value={emailConfirmationCode}
-          setValue={setEmailConfirmationCode}
-          placeHolder={'Confirmation Code'}
-          secureTextEntry={false}
-        />
-        <CustomButton
-          onPress={onConfirmEmailPress}
-          text={'Confirm Email'}
-          type={'PRIMARY'}
-        />
 
-        <CustomButton
-          onPress={onResendEmailPress}
-          text={'Resend Email'}
-          type={'SECONDARY'}
-        />
+        <Formik
+          initialValues={{email: '', emailConfirmation: ''}}
+          onSubmit={values => {
+            console.log(values);
+            navigation.navigate('SignIn');
+          }}>
+          {({handleChange, handleBlur, handleSubmit, values}) => (
+            <View style={{width: '80%'}}>
+              <Text style={styles.text}>Email</Text>
+              <TextInput
+                style={styles.input}
+                onChangeText={handleChange('email')}
+                onBlur={handleBlur('email')}
+                value={values.email}
+              />
+
+              <Text style={styles.text}>Confirmation Code</Text>
+              <TextInput
+                style={styles.input}
+                onChangeText={handleChange('emailConfirmation')}
+                onBlur={handleBlur('emailConfirmation')}
+                value={values.emailConfirmation}
+              />
+
+              <CustomButton
+                onPress={handleSubmit}
+                text="Submit"
+                type="PRIMARY"
+              />
+              <CustomButton
+                onPress={onResendEmailPress}
+                text={'Resend Email'}
+                type={'SECONDARY'}
+              />
+            </View>
+          )}
+        </Formik>
+
         <CustomButton
           onPress={onReturnToLoginPress}
           text={'Have an account? Log in!'}
@@ -76,13 +97,25 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 24,
     fontWeight: 'bold',
-    color: '#051C60',
+    color: COLORS.text,
     margin: 10,
   },
-  text: {
-    color: 'grey',
-  },
+
   link: {
     color: '#FD8D75',
+  },
+  input: {
+    width: '100%',
+    borderColor: COLORS.highlight,
+    borderWidth: 1,
+    borderRadius: 5,
+    paddingHorizontal: 10,
+    marginVertical: 5,
+    color: COLORS.text,
+  },
+  text: {
+    color: COLORS.text,
+    fontWeight: 'bold',
+    fontSize: 16,
   },
 });

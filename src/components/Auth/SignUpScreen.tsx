@@ -1,6 +1,8 @@
 import {useNavigation} from '@react-navigation/native';
 import React, {useState} from 'react';
-import {View, Text, StyleSheet, ScrollView} from 'react-native';
+import {View, Text, StyleSheet, ScrollView, TextInput} from 'react-native';
+import {Formik} from 'formik';
+import {COLORS} from '@/components/theme';
 import CustomInput from '../Common/CustomInput';
 import CustomButton from '../Common/Button';
 
@@ -26,29 +28,38 @@ export default function SignUpScreen() {
     <ScrollView>
       <View style={styles.root}>
         <Text style={styles.title}>Create Account</Text>
-        <CustomInput
-          value={username}
-          setValue={setUsername}
-          placeHolder={'Username'}
-          secureTextEntry={false}
-        />
-        <CustomInput
-          value={password}
-          setValue={setPassword}
-          placeHolder={'Password'}
-          secureTextEntry={true}
-        />
-        <CustomInput
-          value={email}
-          setValue={setEmail}
-          placeHolder={'Email'}
-          secureTextEntry={true}
-        />
-        <CustomButton
-          onPress={onRegisterPress}
-          text={'Register'}
-          type={'PRIMARY'}
-        />
+        <Formik
+          initialValues={{email: '', password: ''}}
+          onSubmit={values => {
+            navigation.navigate('ConfirmEmail');
+            console.log(values);
+          }}>
+          {({handleChange, handleBlur, handleSubmit, values}) => (
+            <View style={{width: '80%'}}>
+              <Text style={styles.text}>Email</Text>
+              <TextInput
+                style={styles.input}
+                onChangeText={handleChange('email')}
+                onBlur={handleBlur('email')}
+                value={values.email}
+              />
+              <Text style={styles.text}>Password</Text>
+              <TextInput
+                style={styles.input}
+                onChangeText={handleChange('password')}
+                onBlur={handleBlur('password')}
+                value={values.password}
+                secureTextEntry={true}
+              />
+              <CustomButton
+                onPress={handleSubmit}
+                text="Register"
+                type="PRIMARY"
+              />
+            </View>
+          )}
+        </Formik>
+
         <Text style={styles.text}>
           By registering, you confirm that you accept our{' '}
           <Text style={styles.link}>Terms of Use</Text> and{' '}
@@ -77,11 +88,22 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 24,
     fontWeight: 'bold',
-    color: '#051C60',
+    color: COLORS.text,
     margin: 10,
   },
+  input: {
+    width: '100%',
+    borderColor: COLORS.highlight,
+    borderWidth: 1,
+    borderRadius: 5,
+    paddingHorizontal: 10,
+    marginVertical: 5,
+    color: COLORS.text,
+  },
   text: {
-    color: 'grey',
+    color: COLORS.text,
+    fontWeight: 'bold',
+    fontSize: 16,
   },
   link: {
     color: '#FD8D75',

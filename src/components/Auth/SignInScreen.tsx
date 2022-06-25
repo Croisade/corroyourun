@@ -54,41 +54,41 @@ export default function SettingsScreen() {
           <Text style={styles.logoPlaceholder}>CorroYouRun</Text>
         </View>
 
-        <View style={styles.form}>
-          <Formik
-            initialValues={{email: '', password: ''}}
-            onSubmit={values => {
-              navigation.navigate('Home');
-              console.log(values);
-            }}>
-            {({handleChange, handleBlur, handleSubmit, values}) => (
-              <View style={{width: '100%'}}>
-                <Text style={styles.text}>Username</Text>
-                <TextInput
-                  style={styles.input}
-                  onChangeText={handleChange('email')}
-                  onBlur={handleBlur('email')}
-                  value={values.email}
-                />
+        {/* <View style={styles.form}> */}
+        <Formik
+          initialValues={{email: '', password: ''}}
+          onSubmit={values => {
+            navigation.navigate('Home');
+            console.log(values);
+          }}>
+          {({handleChange, handleBlur, handleSubmit, values}) => (
+            <View style={styles.form}>
+              <Text style={styles.text}>Username</Text>
+              <TextInput
+                style={styles.input}
+                onChangeText={handleChange('email')}
+                onBlur={handleBlur('email')}
+                value={values.email}
+              />
 
-                <Text style={styles.text}>Password</Text>
-                <TextInput
-                  style={styles.input}
-                  onChangeText={handleChange('password')}
-                  onBlur={handleBlur('password')}
-                  value={values.password}
-                  secureTextEntry={true}
-                />
+              <Text style={styles.text}>Password</Text>
+              <TextInput
+                style={styles.input}
+                onChangeText={handleChange('password')}
+                onBlur={handleBlur('password')}
+                value={values.password}
+                secureTextEntry={true}
+              />
 
-                <CustomButton
-                  onPress={handleSubmit}
-                  text={'Log In'}
-                  type={'PRIMARY'}
-                />
-              </View>
-            )}
-          </Formik>
-        </View>
+              <CustomButton
+                onPress={handleSubmit}
+                text={'Log In'}
+                type={'PRIMARY'}
+              />
+            </View>
+          )}
+        </Formik>
+        {/* </View> */}
 
         <CustomButton
           onPress={onForgotPasswordPress}

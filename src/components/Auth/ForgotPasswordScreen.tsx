@@ -1,19 +1,20 @@
 import {useNavigation} from '@react-navigation/native';
 import React, {useState} from 'react';
-import {View, Text, Image, StyleSheet, ScrollView} from 'react-native';
+import {
+  View,
+  Text,
+  Image,
+  StyleSheet,
+  ScrollView,
+  TextInput,
+} from 'react-native';
 import CustomInput from '../Common/CustomInput';
 import CustomButton from '../Common/Button';
+import {Formik} from 'formik';
+import {COLORS} from '@/components/theme';
 
 export default function SignUpScreen() {
-  const [email, setEmail] = useState('');
-  const [emailConfirmationCode, setEmailConfirmationCode] = useState('');
   const navigation = useNavigation();
-
-  const onSendPress = () => {
-    console.warn('Sign in');
-
-    navigation.navigate('NewPassword');
-  };
 
   const onReturnToLoginPress = () => {
     console.warn('create account');
@@ -25,13 +26,26 @@ export default function SignUpScreen() {
     <ScrollView>
       <View style={styles.root}>
         <Text style={styles.title}>Reset Your Password</Text>
-        <CustomInput
-          value={email}
-          setValue={setEmail}
-          placeHolder={'Email'}
-          secureTextEntry={true}
-        />
-        <CustomButton onPress={onSendPress} text={'Send'} type={'PRIMARY'} />
+
+        <Formik
+          initialValues={{email: ''}}
+          onSubmit={values => {
+            console.log(values);
+            navigation.navigate('NewPassword');
+          }}>
+          {({handleChange, handleBlur, handleSubmit, values}) => (
+            <View style={{width: '80%'}}>
+              <Text style={styles.text}>Email</Text>
+              <TextInput
+                style={styles.input}
+                onChangeText={handleChange('email')}
+                onBlur={handleBlur('email')}
+                value={values.email}
+              />
+              <CustomButton onPress={handleSubmit} text="send" type="PRIMARY" />
+            </View>
+          )}
+        </Formik>
         <CustomButton
           onPress={onReturnToLoginPress}
           text={'Have an account? Log in!'}
@@ -55,13 +69,24 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 24,
     fontWeight: 'bold',
-    color: '#051C60',
+    color: COLORS.text,
     margin: 10,
-  },
-  text: {
-    color: 'grey',
   },
   link: {
     color: '#FD8D75',
+  },
+  input: {
+    width: '100%',
+    borderColor: COLORS.highlight,
+    borderWidth: 1,
+    borderRadius: 5,
+    paddingHorizontal: 10,
+    marginVertical: 5,
+    color: COLORS.text,
+  },
+  text: {
+    color: COLORS.text,
+    fontWeight: 'bold',
+    fontSize: 16,
   },
 });
