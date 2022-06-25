@@ -1,13 +1,37 @@
 import React from 'react';
-import {StyleSheet, Text, useWindowDimensions, View} from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  useWindowDimensions,
+  View,
+  Pressable,
+} from 'react-native';
 import {COLORS} from '@/components/theme';
 
-export default function HomeScreen() {
-  const {height} = useWindowDimensions();
+import {useNavigation} from '@react-navigation/native';
+
+export default function Runs({isFocused = false}) {
+  const navigation = useNavigation();
+
+  const handlePress = () => {
+    navigation.navigate('Summary', {
+      distance: '3.2',
+      speed: '6',
+      time: '26:00',
+      lap: '0',
+      incline: '1',
+    });
+  };
 
   return (
-    <View style={{paddingLeft: 20, paddingRight: 20, paddingBottom: 20}}>
-      <View style={styles.runContainer}>
+    <Pressable
+      style={{paddingLeft: 20, paddingRight: 20, paddingBottom: 20}}
+      onPress={handlePress}>
+      <View
+        style={[
+          styles.runContainer,
+          isFocused && {borderColor: COLORS.primary},
+        ]}>
         <Text style={[styles.text, {fontWeight: 'bold'}]}>
           Run August 7th, 2022
         </Text>
@@ -36,7 +60,7 @@ export default function HomeScreen() {
           </View>
         </View>
       </View>
-    </View>
+    </Pressable>
   );
 }
 
@@ -79,9 +103,10 @@ const styles = StyleSheet.create({
   },
   runContainer: {
     backgroundColor: COLORS.background,
-    borderColor: '#CC4C33',
+    borderColor: COLORS.highlight,
     borderWidth: 1,
     paddingLeft: 17,
     paddingRight: 17,
+    paddingTop: 5,
   },
 });

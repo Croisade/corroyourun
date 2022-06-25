@@ -1,17 +1,25 @@
-import React from 'react';
-import {View, Text, Alert, StyleSheet, useWindowDimensions} from 'react-native';
+import React, {useState} from 'react';
+import {
+  View,
+  Text,
+  Alert,
+  StyleSheet,
+  useWindowDimensions,
+  ScrollView,
+} from 'react-native';
 import Runs from './Runs';
 import Button from '../Common/Button';
 import {COLORS} from '@/components/theme';
 
 export default function HomeScreen({navigation}) {
   const {height} = useWindowDimensions();
+
   const onRunButtonPressed = () => {
     navigation.navigate('Timer');
   };
 
   return (
-    <View style={styles.container}>
+    <ScrollView style={[styles.container, {height: height}]}>
       <View style={styles.top}>
         <Text style={styles.logoPlaceholder}>CorroYouRun</Text>
       </View>
@@ -40,25 +48,15 @@ export default function HomeScreen({navigation}) {
           />
         </View>
       </View>
-    </View>
+    </ScrollView>
   );
 }
-
-// top: {
-//   flex: 0.3,
-//   backgroundColor: '#CC4C33',
-//   borderWidth: 5,
-//   maxHeight: 200,
-// },
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    // justifyContent: 'space-between',
     backgroundColor: COLORS.background,
     height: '100%',
-    // padding: 20,
-    // margin: 10,
   },
   top: {
     // flex: 0.3,
@@ -77,6 +75,8 @@ const styles = StyleSheet.create({
     color: '#CC4C33',
     fontWeight: 'bold',
     fontSize: 20,
+    marginTop: 15,
+    marginBottom: 15,
   },
   bottom: {
     flex: 0.3,

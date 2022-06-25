@@ -1,5 +1,12 @@
 import React, {useState} from 'react';
-import {View, Text, StyleSheet, TextInput, Pressable} from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  TextInput,
+  Pressable,
+  ScrollView,
+} from 'react-native';
 import {COLORS} from '@/components/theme';
 import {Formik} from 'formik';
 import Button from '@/components/Common/Button';
@@ -27,122 +34,151 @@ export default function InformationScreen({route, navigation}) {
     setBikeFocus(true);
   };
 
-  const {time} = route.params;
-  return (
-    <View style={styles.root}>
-      <Text style={styles.header}>Summary</Text>
+  const {
+    time,
+    distance,
+    speed,
+    lap,
+    incline,
+  }: {
+    time: string;
+    distance: string;
+    speed: string;
+    lap: string;
+    incline: string;
+  } = route.params;
 
-      <View
-        style={{
-          width: 260,
-          height: 45,
-        }}>
+  console.log(time, distance, speed, lap, incline);
+  return (
+    <ScrollView>
+      <View style={styles.root}>
+        <Text style={styles.header}>Summary</Text>
+
         <View
           style={{
-            flexDirection: 'row',
-            justifyContent: 'space-between',
-            backgroundColor: COLORS.highlight,
-            borderRadius: 300,
             width: 260,
-            height: 36,
+            height: 45,
           }}>
-          {walkFocus ? (
-            <View style={styles.sliderBarBorderFocused}>
-              <Text style={styles.sliderBarFocused}>Walk</Text>
-            </View>
-          ) : (
-            <Pressable onPress={handleWalkPress}>
-              <View style={styles.sliderBarBorderUnfocused}>
-                <Text style={styles.sliderBarUnfocused}>Walk</Text>
+          <View
+            style={{
+              flexDirection: 'row',
+              justifyContent: 'space-between',
+              backgroundColor: COLORS.highlight,
+              borderRadius: 300,
+              width: 260,
+              height: 36,
+            }}>
+            {walkFocus ? (
+              <View style={styles.sliderBarBorderFocused}>
+                <Text style={styles.sliderBarFocused}>Walk</Text>
               </View>
-            </Pressable>
-          )}
+            ) : (
+              <Pressable onPress={handleWalkPress}>
+                <View style={styles.sliderBarBorderUnfocused}>
+                  <Text style={styles.sliderBarUnfocused}>Walk</Text>
+                </View>
+              </Pressable>
+            )}
 
-          {runFocus ? (
-            <View style={styles.sliderBarBorderFocused}>
-              <Text style={styles.sliderBarFocused}>Run</Text>
-            </View>
-          ) : (
-            <Pressable onPress={handleRunPress}>
-              <View style={styles.sliderBarBorderUnfocused}>
-                <Text style={styles.sliderBarUnfocused}>Run</Text>
+            {runFocus ? (
+              <View style={styles.sliderBarBorderFocused}>
+                <Text style={styles.sliderBarFocused}>Run</Text>
               </View>
-            </Pressable>
-          )}
+            ) : (
+              <Pressable onPress={handleRunPress}>
+                <View style={styles.sliderBarBorderUnfocused}>
+                  <Text style={styles.sliderBarUnfocused}>Run</Text>
+                </View>
+              </Pressable>
+            )}
 
-          {bikeFocus ? (
-            <View style={styles.sliderBarBorderFocused}>
-              <Text style={styles.sliderBarFocused}>Bike</Text>
-            </View>
-          ) : (
-            <Pressable onPress={handleBikePress}>
-              <View style={styles.sliderBarBorderUnfocused}>
-                <Text style={styles.sliderBarUnfocused}>Bike</Text>
+            {bikeFocus ? (
+              <View style={styles.sliderBarBorderFocused}>
+                <Text style={styles.sliderBarFocused}>Bike</Text>
               </View>
-            </Pressable>
-          )}
+            ) : (
+              <Pressable onPress={handleBikePress}>
+                <View style={styles.sliderBarBorderUnfocused}>
+                  <Text style={styles.sliderBarUnfocused}>Bike</Text>
+                </View>
+              </Pressable>
+            )}
+          </View>
+        </View>
+
+        <View style={styles.timer}>
+          <Text style={styles.timerText}>{time}</Text>
+        </View>
+
+        <View style={{marginTop: 20}}>
+          <Formik
+            initialValues={{
+              distance: distance ? distance : '',
+              speed: speed ? speed : '',
+              lap: lap ? lap : '',
+              incline: incline ? incline : '',
+            }}
+            onSubmit={values => console.log(values)}>
+            {({handleBlur, handleSubmit, values, setFieldValue}) => (
+              <View style={{flexDirection: 'column'}}>
+                <View style={{flex: 1}}>
+                  <View style={styles.formView}>
+                    <Text style={styles.text}>Distance</Text>
+                    <TextInput
+                      style={styles.input}
+                      onChangeText={value =>
+                        setFieldValue('distance', parseFloat(value))
+                      }
+                      onBlur={handleBlur('distance')}
+                      value={values.distance}
+                      placeholder="Distance"
+                    />
+                  </View>
+                  <View style={styles.formView}>
+                    <Text style={styles.text}>Speed</Text>
+                    <TextInput
+                      style={styles.input}
+                      onChangeText={value =>
+                        setFieldValue('speed', parseFloat(value))
+                      }
+                      onBlur={handleBlur('speed')}
+                      value={values.speed}
+                      placeholder="Speed"
+                    />
+                  </View>
+                  <View style={styles.formView}>
+                    <Text style={styles.text}>Lap</Text>
+                    <TextInput
+                      style={styles.input}
+                      onChangeText={value =>
+                        setFieldValue('lap', parseFloat(value))
+                      }
+                      onBlur={handleBlur('lap')}
+                      value={values.lap}
+                      placeholder="Lap"
+                    />
+                  </View>
+                  <View style={styles.formView}>
+                    <Text style={styles.text}>Incline</Text>
+                    <TextInput
+                      style={styles.input}
+                      onChangeText={value =>
+                        setFieldValue('incline', parseFloat(value))
+                      }
+                      onBlur={handleBlur('incline')}
+                      value={values.incline}
+                      placeholder="Incline"
+                    />
+                  </View>
+
+                  <Button onPress={handleSubmit} text="Done" type="PRIMARY" />
+                </View>
+              </View>
+            )}
+          </Formik>
         </View>
       </View>
-
-      <View style={styles.timer}>
-        <Text style={styles.timerText}>{time}</Text>
-      </View>
-
-      <View style={{marginTop: 20}}>
-        <Formik
-          initialValues={{distance: '', speed: '', lap: '', incline: ''}}
-          onSubmit={values => console.log(values)}>
-          {({handleChange, handleBlur, handleSubmit, values}) => (
-            <View style={{flexDirection: 'column'}}>
-              <View style={{flex: 1}}>
-                <View style={styles.formView}>
-                  <Text style={styles.text}>Distance</Text>
-                  <TextInput
-                    style={styles.input}
-                    onChangeText={handleChange('distance')}
-                    onBlur={handleBlur('distance')}
-                    value={values.distance}
-                    placeholder="Distance"
-                  />
-                </View>
-                <View style={styles.formView}>
-                  <Text style={styles.text}>Speed</Text>
-                  <TextInput
-                    style={styles.input}
-                    onChangeText={handleChange('speed')}
-                    onBlur={handleBlur('speed')}
-                    value={values.speed}
-                    placeholder="Speed"
-                  />
-                </View>
-                <View style={styles.formView}>
-                  <Text style={styles.text}>Lap</Text>
-                  <TextInput
-                    style={styles.input}
-                    onChangeText={handleChange('lap')}
-                    onBlur={handleBlur('lap')}
-                    value={values.lap}
-                    placeholder="Lap"
-                  />
-                </View>
-                <View style={styles.formView}>
-                  <Text style={styles.text}>Incline</Text>
-                  <TextInput
-                    style={styles.input}
-                    onChangeText={handleChange('incline')}
-                    onBlur={handleBlur('incline')}
-                    value={values.incline}
-                    placeholder="Incline"
-                  />
-                </View>
-
-                <Button onPress={handleSubmit} text="Done" type="PRIMARY" />
-              </View>
-            </View>
-          )}
-        </Formik>
-      </View>
-    </View>
+    </ScrollView>
   );
 }
 
