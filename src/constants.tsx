@@ -1,3 +1,4 @@
+export const SCOPE = 'USER'
 export const URL = {
   issues:
     'https://github.com/Croisade/corroyourun/issues/new?assignees=&labels=&template=bug_report.md&title=',

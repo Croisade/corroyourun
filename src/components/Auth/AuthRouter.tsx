@@ -1,16 +1,13 @@
-import React, {useState} from 'react'
-import {Text, View} from 'react-native'
+import React from 'react'
 import {NavigationContainer} from '@react-navigation/native'
 import {createNativeStackNavigator} from '@react-navigation/native-stack'
 
-import MainContainer from '../navigation/MainContainer'
 import SignInScreen from './SignInScreen'
 import SignUpScreen from './SignUpScreen'
 import ConfirmEmailScreen from './ConfirmEmailScreen'
 import ForgotPasswordScreen from './ForgotPasswordScreen'
 import ResetPasswordScreen from './ResetPasswordScreen'
-import HomeScreen from '../navigation/HomeScreen'
-import Router from '@app/components/Router'
+import Router from '@/components/Router'
 
 const Stack = createNativeStackNavigator()
 
