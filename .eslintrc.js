@@ -13,4 +13,8 @@ module.exports = {
       },
     },
   ],
+  globals: {
+    GLOBAL: true,
+    __DEV__: true,
+  },
 };
