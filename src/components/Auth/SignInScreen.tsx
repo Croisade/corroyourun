@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState} from 'react'
 import {
   View,
   Image,
@@ -7,39 +7,39 @@ import {
   ScrollView,
   TextInput,
   Text,
-} from 'react-native';
-import Logo from '../../images/logo.png';
-import CustomInput from '../Common/CustomInput';
-import CustomButton from '../Common/Button';
-import {COLORS} from '@/components/theme';
-import {useNavigation} from '@react-navigation/native';
-import {Formik} from 'formik';
+} from 'react-native'
+import Logo from '../../images/logo.png'
+import CustomInput from '../Common/CustomInput'
+import CustomButton from '../Common/Button'
+import {COLORS} from '@/components/theme'
+import {useNavigation} from '@react-navigation/native'
+import {Formik} from 'formik'
 
 export default function SettingsScreen() {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
+  const [username, setUsername] = useState('')
+  const [password, setPassword] = useState('')
 
-  const {height} = useWindowDimensions();
-  const navigation = useNavigation();
+  const {height} = useWindowDimensions()
+  const navigation = useNavigation()
 
   const onSignInPressed = () => {
-    console.warn('Sign in');
+    console.warn('Sign in')
     //validation user
 
-    navigation.navigate('Home');
-  };
+    navigation.navigate('Home')
+  }
 
   const onForgotPasswordPress = () => {
-    console.warn('forgot password');
+    console.warn('forgot password')
 
-    navigation.navigate('ForgotPassword');
-  };
+    navigation.navigate('ForgotPassword')
+  }
 
   const onCreateAccountPress = () => {
-    console.warn('create Account');
+    console.warn('create Account')
 
-    navigation.navigate('SignUp');
-  };
+    navigation.navigate('SignUp')
+  }
 
   return (
     <ScrollView>
@@ -58,8 +58,8 @@ export default function SettingsScreen() {
         <Formik
           initialValues={{email: '', password: ''}}
           onSubmit={values => {
-            navigation.navigate('Home');
-            console.log(values);
+            navigation.navigate('Home')
+            console.log(values)
           }}>
           {({handleChange, handleBlur, handleSubmit, values}) => (
             <View style={styles.form}>
@@ -102,7 +102,7 @@ export default function SettingsScreen() {
         />
       </View>
     </ScrollView>
-  );
+  )
 }
 
 const styles = StyleSheet.create({
@@ -151,4 +151,4 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     fontSize: 20,
   },
-});
+})

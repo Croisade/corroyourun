@@ -1,6 +1,6 @@
-import * as React from 'react';
-import URLText from '@/components/Common/URlText';
-import {URL} from '@/constants';
+import * as React from 'react'
+import URLText from '@/components/Common/URlText'
+import {URL} from '@/constants'
 
 export default function CommunityButtons() {
   return (
@@ -9,5 +9,5 @@ export default function CommunityButtons() {
       <URLText text={'Request Feature'} url={URL.requestFeature} />
       <URLText text={'Forums'} url={URL.Forums} />
     </>
-  );
+  )
 }

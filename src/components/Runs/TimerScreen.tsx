@@ -1,43 +1,43 @@
-import {COLORS} from '@/components/theme';
-import {LogBox, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
-import {Timer} from 'react-native-element-timer';
-import Button from '@/components/Common/Button';
-import React, {useRef} from 'react';
-import useState from 'react-usestateref';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import {COLORS} from '@/components/theme'
+import {LogBox, StyleSheet, Text, TouchableOpacity, View} from 'react-native'
+import {Timer} from 'react-native-element-timer'
+import Button from '@/components/Common/Button'
+import React, {useRef} from 'react'
+import useState from 'react-usestateref'
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 
 export default function TimerScreen({navigation}) {
-  const [hasStarted, setHasStarted] = useState(false);
-  const [time, setTime, timeRef] = useState<number>();
-  const [status, setStatus] = useState(false);
+  const [hasStarted, setHasStarted] = useState(false)
+  const [time, setTime, timeRef] = useState<number>()
+  const [status, setStatus] = useState(false)
 
-  const timerRef = useRef<any>(null);
+  const timerRef = useRef<any>(null)
   LogBox.ignoreLogs([
     /NativeEventEmitter/, // react-native-webrtc
-  ]);
+  ])
 
   const handleTimerStart = () => {
-    timerRef.current.start();
-    setHasStarted(true);
-  };
+    timerRef.current.start()
+    setHasStarted(true)
+  }
 
   const handleTimerResume = () => {
-    timerRef.current.resume();
-  };
+    timerRef.current.resume()
+  }
 
   const handleTimerPause = () => {
-    timerRef.current.pause();
-  };
+    timerRef.current.pause()
+  }
 
   const handleTimerStop = () => {
-    timerRef.current.stop();
-  };
+    timerRef.current.stop()
+  }
 
   const handleTimerEnd = (t: number) => {
-    setTime(t);
-    setHasStarted(false);
-    navigation.navigate('Summary', {time: timeRef.current});
-  };
+    setTime(t)
+    setHasStarted(false)
+    navigation.navigate('Summary', {time: timeRef.current})
+  }
 
   return (
     <View style={styles.root}>
@@ -73,7 +73,7 @@ export default function TimerScreen({navigation}) {
         />
       </View>
     </View>
-  );
+  )
 }
 
 const styles = StyleSheet.create({
@@ -120,4 +120,4 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     fontWeight: 'bold',
   },
-});
+})

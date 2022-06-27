@@ -8,4 +8,4 @@ export default {
   CALENDAR: 'Calendar',
   TRACKING: 'Tracking',
   SETTINGS: 'Settings',
-};
+}

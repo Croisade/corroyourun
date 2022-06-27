@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState} from 'react'
 import {
   View,
   Text,
@@ -6,33 +6,33 @@ import {
   TextInput,
   Pressable,
   ScrollView,
-} from 'react-native';
-import {COLORS} from '@/components/theme';
-import {Formik} from 'formik';
-import Button from '@/components/Common/Button';
+} from 'react-native'
+import {COLORS} from '@/components/theme'
+import {Formik} from 'formik'
+import Button from '@/components/Common/Button'
 
 export default function InformationScreen({route, navigation}) {
-  const [walkFocus, setWalkFocus] = useState(false);
-  const [runFocus, setRunFocus] = useState(true);
-  const [bikeFocus, setBikeFocus] = useState(false);
+  const [walkFocus, setWalkFocus] = useState(false)
+  const [runFocus, setRunFocus] = useState(true)
+  const [bikeFocus, setBikeFocus] = useState(false)
 
   const handleWalkPress = () => {
-    setWalkFocus(true);
-    setRunFocus(false);
-    setBikeFocus(false);
-  };
+    setWalkFocus(true)
+    setRunFocus(false)
+    setBikeFocus(false)
+  }
 
   const handleRunPress = () => {
-    setWalkFocus(false);
-    setRunFocus(true);
-    setBikeFocus(false);
-  };
+    setWalkFocus(false)
+    setRunFocus(true)
+    setBikeFocus(false)
+  }
 
   const handleBikePress = () => {
-    setWalkFocus(false);
-    setRunFocus(false);
-    setBikeFocus(true);
-  };
+    setWalkFocus(false)
+    setRunFocus(false)
+    setBikeFocus(true)
+  }
 
   const {
     time,
@@ -41,14 +41,14 @@ export default function InformationScreen({route, navigation}) {
     lap,
     incline,
   }: {
-    time: string;
-    distance: string;
-    speed: string;
-    lap: string;
-    incline: string;
-  } = route.params;
+    time: string
+    distance: string
+    speed: string
+    lap: string
+    incline: string
+  } = route.params
 
-  console.log(time, distance, speed, lap, incline);
+  console.log(time, distance, speed, lap, incline)
   return (
     <ScrollView>
       <View style={styles.root}>
@@ -179,7 +179,7 @@ export default function InformationScreen({route, navigation}) {
         </View>
       </View>
     </ScrollView>
-  );
+  )
 }
 
 const styles = StyleSheet.create({
@@ -261,4 +261,4 @@ const styles = StyleSheet.create({
     width: 80,
     height: 36,
   },
-});
+})

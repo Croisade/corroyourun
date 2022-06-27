@@ -1,21 +1,21 @@
 //@ts-nocheck
-import React, {useCallback} from 'react';
-import {Text, StyleSheet, Pressable, Linking} from 'react-native';
-import {COLORS} from '@/components/theme';
+import React, {useCallback} from 'react'
+import {Text, StyleSheet, Pressable, Linking} from 'react-native'
+import {COLORS} from '@/components/theme'
 
 export default function URLText({text, url}) {
   const handlePress = useCallback(async () => {
     // Checking if the link is supported for links with custom URL scheme.
-    const supported = await Linking.canOpenURL(url);
+    const supported = await Linking.canOpenURL(url)
 
     if (supported) {
       // Opening the link with some app, if the URL scheme is "http" the web link should be opened
       // by some browser in the mobile
-      await Linking.openURL(url);
+      await Linking.openURL(url)
     } else {
-      Alert.alert(`Don't know how to open this URL: ${url}`);
+      Alert.alert(`Don't know how to open this URL: ${url}`)
     }
-  }, [url]);
+  }, [url])
 
   return (
     <Pressable
@@ -27,7 +27,7 @@ export default function URLText({text, url}) {
       ]}>
       <Text style={[styles.text]}>{text}</Text>
     </Pressable>
-  );
+  )
 }
 
 const styles = StyleSheet.create({
@@ -39,4 +39,4 @@ const styles = StyleSheet.create({
     color: COLORS.text,
     marginBottom: 20,
   },
-});
+})

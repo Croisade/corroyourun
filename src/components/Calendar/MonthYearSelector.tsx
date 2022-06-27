@@ -1,16 +1,16 @@
-import React from 'react';
-import {StyleSheet, Text, View, Pressable} from 'react-native';
-import {COLORS} from '@/components/theme';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import React from 'react'
+import {StyleSheet, Text, View, Pressable} from 'react-native'
+import {COLORS} from '@/components/theme'
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 
 export default function MonthYearSelector({
   text,
   onPressUp,
   onPressDown,
 }: {
-  text: string | number;
-  onPressUp: () => void;
-  onPressDown: () => void;
+  text: string | number
+  onPressUp: () => void
+  onPressDown: () => void
 }) {
   return (
     <View style={styles.root}>
@@ -25,7 +25,7 @@ export default function MonthYearSelector({
         <Icon name="chevron-down" size={40} color="#900" />
       </Pressable>
     </View>
-  );
+  )
 }
 
 const styles = StyleSheet.create({
@@ -44,4 +44,4 @@ const styles = StyleSheet.create({
     marginTop: 10,
     marginBottom: 10,
   },
-});
+})

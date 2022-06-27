@@ -1,6 +1,6 @@
 //@ts-nocheck
-import React from 'react';
-import {Text, StyleSheet, Pressable} from 'react-native';
+import React from 'react'
+import {Text, StyleSheet, Pressable} from 'react-native'
 
 export default function Button({onPress, text, type, isRounded = false}) {
   return (
@@ -13,7 +13,7 @@ export default function Button({onPress, text, type, isRounded = false}) {
       ]}>
       <Text style={[styles.text, styles[`text_${type}`]]}>{text}</Text>
     </Pressable>
-  );
+  )
 }
 
 const styles = StyleSheet.create({
@@ -45,4 +45,4 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: 'grey',
   },
-});
+})

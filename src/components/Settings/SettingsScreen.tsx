@@ -1,10 +1,10 @@
-import React from 'react';
-import {View, Text, StyleSheet} from 'react-native';
+import React from 'react'
+import {View, Text, StyleSheet} from 'react-native'
 
-import {COLORS} from '@/components/theme';
-import URLText from '@/components/Common/URlText';
-import CommunityLinks from '@/components/Settings/CommunityLinks';
-import {URL} from '@/constants';
+import {COLORS} from '@/components/theme'
+import URLText from '@/components/Common/URlText'
+import CommunityLinks from '@/components/Settings/CommunityLinks'
+import {URL} from '@/constants'
 
 export default function SettingsScreen({navigation}) {
   return (
@@ -34,7 +34,7 @@ export default function SettingsScreen({navigation}) {
         <Text style={styles.footer}>© CorroYouRun - All Rights Reserved</Text>
       </View>
     </View>
-  );
+  )
 }
 
 const styles = StyleSheet.create({
@@ -69,4 +69,4 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     fontWeight: 'bold',
   },
-});
+})

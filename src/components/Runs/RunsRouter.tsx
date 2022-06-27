@@ -1,11 +1,11 @@
-import {createStackNavigator} from '@react-navigation/stack';
-import * as React from 'react';
-import RunsScreen from '@/components/Runs/RunsScreen';
-import TimerScreen from '@/components/Runs/TimerScreen';
-import SummaryScreen from '@/components/Runs/SummaryScreen';
+import {createStackNavigator} from '@react-navigation/stack'
+import * as React from 'react'
+import RunsScreen from '@/components/Runs/RunsScreen'
+import TimerScreen from '@/components/Runs/TimerScreen'
+import SummaryScreen from '@/components/Runs/SummaryScreen'
 
 export default function RunsRouter() {
-  const RunsStack = createStackNavigator();
+  const RunsStack = createStackNavigator()
   return (
     <RunsStack.Navigator
       initialRouteName="RunsHome"
@@ -26,5 +26,5 @@ export default function RunsRouter() {
         options={{title: 'Timer', headerTransparent: true}}
       />
     </RunsStack.Navigator>
-  );
+  )
 }

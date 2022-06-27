@@ -1,4 +1,4 @@
-import env from '@/utils/env';
+import env from '@/utils/env'
 
 const CONFIG = {
   default: {
@@ -10,11 +10,11 @@ const CONFIG = {
   qa: {},
   staging: {},
   development: {},
-};
+}
 
 export default new Proxy(CONFIG.default, {
   get(obj, prop) {
     // @ts-ignore
-    return CONFIG[env.current][prop] || obj[prop];
+    return CONFIG[env.current][prop] || obj[prop]
   },
-});
+})

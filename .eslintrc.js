@@ -1,6 +1,9 @@
 module.exports = {
   root: true,
   extends: '@react-native-community',
+  rules: {
+    semi: [2, 'never'],
+  },
   parser: '@typescript-eslint/parser',
   plugins: ['@typescript-eslint'],
   overrides: [
@@ -10,6 +13,7 @@ module.exports = {
         '@typescript-eslint/no-shadow': ['error'],
         'no-shadow': 'off',
         'no-undef': 'off',
+        semi: [2, 'never'],
       },
     },
   ],
@@ -17,4 +21,4 @@ module.exports = {
     GLOBAL: true,
     __DEV__: true,
   },
-};
+}

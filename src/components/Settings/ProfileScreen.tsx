@@ -1,10 +1,10 @@
-import * as React from 'react';
-import {View, Text, StyleSheet} from 'react-native';
-import URLText from '../Common/URlText';
-import {COLORS} from '../theme';
+import * as React from 'react'
+import {View, Text, StyleSheet} from 'react-native'
+import URLText from '../Common/URlText'
+import {COLORS} from '../theme'
 
-import {URL} from '@/constants';
-import CommunityLinks from '@/components/Settings/CommunityLinks';
+import {URL} from '@/constants'
+import CommunityLinks from '@/components/Settings/CommunityLinks'
 
 export default function ProfileScreen() {
   return (
@@ -25,7 +25,7 @@ export default function ProfileScreen() {
         <CommunityLinks />
       </View>
     </View>
-  );
+  )
 }
 
 const styles = StyleSheet.create({
@@ -64,4 +64,4 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     fontWeight: 'bold',
   },
-});
+})

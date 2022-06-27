@@ -1,17 +1,17 @@
-import React from 'react';
+import React from 'react'
 import {
   StyleSheet,
   Text,
   useWindowDimensions,
   View,
   Pressable,
-} from 'react-native';
-import {COLORS} from '@/components/theme';
+} from 'react-native'
+import {COLORS} from '@/components/theme'
 
-import {useNavigation} from '@react-navigation/native';
+import {useNavigation} from '@react-navigation/native'
 
 export default function Runs({isFocused = false}) {
-  const navigation = useNavigation();
+  const navigation = useNavigation()
 
   const handlePress = () => {
     navigation.navigate('Summary', {
@@ -20,8 +20,8 @@ export default function Runs({isFocused = false}) {
       time: '26:00',
       lap: '0',
       incline: '1',
-    });
-  };
+    })
+  }
 
   return (
     <Pressable
@@ -61,7 +61,7 @@ export default function Runs({isFocused = false}) {
         </View>
       </View>
     </Pressable>
-  );
+  )
 }
 
 const styles = StyleSheet.create({
@@ -109,4 +109,4 @@ const styles = StyleSheet.create({
     paddingRight: 17,
     paddingTop: 5,
   },
-});
+})

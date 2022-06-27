@@ -6,4 +6,4 @@ export const COLORS = {
   muted: '#F3EEED',
   highlight: '#F0DFDB',
   gray: '#996E66',
-};
+}

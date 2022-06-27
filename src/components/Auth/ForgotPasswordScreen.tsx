@@ -1,5 +1,5 @@
-import {useNavigation} from '@react-navigation/native';
-import React, {useState} from 'react';
+import {useNavigation} from '@react-navigation/native'
+import React, {useState} from 'react'
 import {
   View,
   Text,
@@ -7,20 +7,20 @@ import {
   StyleSheet,
   ScrollView,
   TextInput,
-} from 'react-native';
-import CustomInput from '../Common/CustomInput';
-import CustomButton from '../Common/Button';
-import {Formik} from 'formik';
-import {COLORS} from '@/components/theme';
+} from 'react-native'
+import CustomInput from '../Common/CustomInput'
+import CustomButton from '../Common/Button'
+import {Formik} from 'formik'
+import {COLORS} from '@/components/theme'
 
 export default function SignUpScreen() {
-  const navigation = useNavigation();
+  const navigation = useNavigation()
 
   const onReturnToLoginPress = () => {
-    console.warn('create account');
+    console.warn('create account')
 
-    navigation.navigate('SignIn');
-  };
+    navigation.navigate('SignIn')
+  }
 
   return (
     <ScrollView>
@@ -30,8 +30,8 @@ export default function SignUpScreen() {
         <Formik
           initialValues={{email: ''}}
           onSubmit={values => {
-            console.log(values);
-            navigation.navigate('NewPassword');
+            console.log(values)
+            navigation.navigate('NewPassword')
           }}>
           {({handleChange, handleBlur, handleSubmit, values}) => (
             <View style={{width: '80%'}}>
@@ -53,7 +53,7 @@ export default function SignUpScreen() {
         />
       </View>
     </ScrollView>
-  );
+  )
 }
 
 const styles = StyleSheet.create({
@@ -89,4 +89,4 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     fontSize: 16,
   },
-});
+})

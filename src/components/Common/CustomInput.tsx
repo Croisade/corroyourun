@@ -1,5 +1,5 @@
-import * as React from 'react';
-import {View, TextInput, StyleSheet} from 'react-native';
+import * as React from 'react'
+import {View, TextInput, StyleSheet} from 'react-native'
 
 export default function Input({
   value,
@@ -7,10 +7,10 @@ export default function Input({
   placeHolder,
   secureTextEntry,
 }: {
-  value: string;
-  setValue: React.Dispatch<React.SetStateAction<string>>;
-  placeHolder: string;
-  secureTextEntry: boolean;
+  value: string
+  setValue: React.Dispatch<React.SetStateAction<string>>
+  placeHolder: string
+  secureTextEntry: boolean
 }) {
   return (
     <View style={styles.container}>
@@ -22,7 +22,7 @@ export default function Input({
         secureTextEntry={secureTextEntry}
       />
     </View>
-  );
+  )
 }
 
 const styles = StyleSheet.create({
@@ -38,4 +38,4 @@ const styles = StyleSheet.create({
   input: {
     color: 'black',
   },
-});
+})

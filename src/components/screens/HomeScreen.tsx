@@ -1,5 +1,5 @@
-import React from 'react';
-import {View, Text, Alert} from 'react-native';
+import React from 'react'
+import {View, Text, Alert} from 'react-native'
 
 export default function HomeScreen({navigation}) {
   return (
@@ -19,5 +19,5 @@ export default function HomeScreen({navigation}) {
         Home!
       </Text>
     </View>
-  );
+  )
 }

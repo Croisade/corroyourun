@@ -1,13 +1,13 @@
-import React from 'react';
-import {View, Text, Alert, StyleSheet} from 'react-native';
-import {COLORS} from '../theme';
+import React from 'react'
+import {View, Text, Alert, StyleSheet} from 'react-native'
+import {COLORS} from '../theme'
 
 export default function TrackingScreen() {
   return (
     <View style={styles.root}>
       <Text style={styles.header}>Coming Soon</Text>
     </View>
-  );
+  )
 }
 
 const styles = StyleSheet.create({
@@ -26,4 +26,4 @@ const styles = StyleSheet.create({
     paddingBottom: 34,
     paddingTop: 15,
   },
-});
+})

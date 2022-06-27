@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState} from 'react'
 import {
   View,
   Text,
@@ -6,17 +6,17 @@ import {
   StyleSheet,
   useWindowDimensions,
   ScrollView,
-} from 'react-native';
-import Runs from './Runs';
-import Button from '../Common/Button';
-import {COLORS} from '@/components/theme';
+} from 'react-native'
+import Runs from './Runs'
+import Button from '../Common/Button'
+import {COLORS} from '@/components/theme'
 
 export default function HomeScreen({navigation}) {
-  const {height} = useWindowDimensions();
+  const {height} = useWindowDimensions()
 
   const onRunButtonPressed = () => {
-    navigation.navigate('Timer');
-  };
+    navigation.navigate('Timer')
+  }
 
   return (
     <ScrollView style={[styles.container, {height: height}]}>
@@ -49,7 +49,7 @@ export default function HomeScreen({navigation}) {
         </View>
       </View>
     </ScrollView>
-  );
+  )
 }
 
 const styles = StyleSheet.create({
@@ -96,4 +96,4 @@ const styles = StyleSheet.create({
     paddingLeft: 17,
     paddingRight: 17,
   },
-});
+})

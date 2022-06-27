@@ -1,5 +1,5 @@
-import {useNavigation} from '@react-navigation/native';
-import React, {useState} from 'react';
+import {useNavigation} from '@react-navigation/native'
+import React, {useState} from 'react'
 import {
   View,
   Text,
@@ -7,34 +7,34 @@ import {
   StyleSheet,
   ScrollView,
   TextInput,
-} from 'react-native';
-import {Formik} from 'formik';
-import CustomInput from '../Common/CustomInput';
-import CustomButton from '../Common/Button';
-import {COLORS} from '@/components/theme';
+} from 'react-native'
+import {Formik} from 'formik'
+import CustomInput from '../Common/CustomInput'
+import CustomButton from '../Common/Button'
+import {COLORS} from '@/components/theme'
 
 export default function SignUpScreen() {
-  const [password, setPassword] = useState('');
-  const [emailConfirmationCode, setEmailConfirmationCode] = useState('');
-  const navigation = useNavigation();
+  const [password, setPassword] = useState('')
+  const [emailConfirmationCode, setEmailConfirmationCode] = useState('')
+  const navigation = useNavigation()
 
   const onConfirmPasswordPress = () => {
-    console.warn('Sign in');
+    console.warn('Sign in')
 
-    navigation.navigate('SignIn');
-  };
+    navigation.navigate('SignIn')
+  }
 
   const onSendEmailCodePress = () => {
-    console.warn('Sign in');
+    console.warn('Sign in')
 
-    navigation.navigate('NewPassword');
-  };
+    navigation.navigate('NewPassword')
+  }
 
   const onReturnToLoginPress = () => {
-    console.warn('create account');
+    console.warn('create account')
 
-    navigation.navigate('SignIn');
-  };
+    navigation.navigate('SignIn')
+  }
 
   return (
     <ScrollView>
@@ -44,8 +44,8 @@ export default function SignUpScreen() {
         <Formik
           initialValues={{password: '', confirmationCode: ''}}
           onSubmit={values => {
-            console.log(values);
-            navigation.navigate('SignIn');
+            console.log(values)
+            navigation.navigate('SignIn')
           }}>
           {({handleChange, handleBlur, handleSubmit, values}) => (
             <View style={{width: '80%'}}>
@@ -83,7 +83,7 @@ export default function SignUpScreen() {
         </Formik>
       </View>
     </ScrollView>
-  );
+  )
 }
 
 const styles = StyleSheet.create({
@@ -119,4 +119,4 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     fontSize: 16,
   },
-});
+})

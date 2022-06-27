@@ -1,19 +1,19 @@
-import * as React from 'react';
-import {NavigationContainer} from '@react-navigation/native';
-import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import * as React from 'react'
+import {NavigationContainer} from '@react-navigation/native'
+import {createBottomTabNavigator} from '@react-navigation/bottom-tabs'
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 
 // Screens
-import HomeScreen from '../screens/HomeScreen';
-import DetailsScreen from '../screens/DetailsScreen';
-import SettingsScreen from '../screens/SettingsScreenExample';
+import HomeScreen from '../screens/HomeScreen'
+import DetailsScreen from '../screens/DetailsScreen'
+import SettingsScreen from '../screens/SettingsScreenExample'
 
 //Screen names
-const homeName = 'Home';
-const detailsName = 'Details';
-const settingsName = 'Settings';
+const homeName = 'Home'
+const detailsName = 'Details'
+const settingsName = 'Settings'
 
-const Tab = createBottomTabNavigator();
+const Tab = createBottomTabNavigator()
 
 function MainContainer() {
   return (
@@ -22,19 +22,19 @@ function MainContainer() {
         initialRouteName={homeName}
         screenOptions={({route}) => ({
           tabBarIcon: ({focused}) => {
-            let iconName = '';
-            let rn = route.name;
+            let iconName = ''
+            let rn = route.name
 
             if (rn === homeName) {
-              iconName = 'run';
+              iconName = 'run'
             } else if (rn === detailsName) {
-              iconName = 'calendar';
+              iconName = 'calendar'
             } else if (rn === settingsName) {
-              iconName = 'chart-timeline-variant';
+              iconName = 'chart-timeline-variant'
             }
             // return <Icon name="comments" size={30} color="#900" />;
             // You can return any component that you like here!
-            return <Icon name={iconName} size={30} color="#900" />;
+            return <Icon name={iconName} size={30} color="#900" />
           },
         })}>
         <Tab.Screen name={homeName} component={HomeScreen} />
@@ -42,7 +42,7 @@ function MainContainer() {
         <Tab.Screen name={settingsName} component={SettingsScreen} />
       </Tab.Navigator>
     </NavigationContainer>
-  );
+  )
 }
 
-export default MainContainer;
+export default MainContainer

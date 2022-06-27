@@ -1,15 +1,15 @@
-import React, {useCallback, useMemo, useState} from 'react';
-import {View, Text, Alert, StyleSheet} from 'react-native';
+import React, {useCallback, useMemo, useState} from 'react'
+import {View, Text, Alert, StyleSheet} from 'react-native'
 import {
   Calendar,
   CalendarList,
   Agenda,
   CalendarProps,
-} from 'react-native-calendars';
-import CustomInput from '@/components/Common/CustomInput';
-import {COLORS} from '../theme';
+} from 'react-native-calendars'
+import CustomInput from '@/components/Common/CustomInput'
+import {COLORS} from '../theme'
 
-import MonthYearSelector from '@/components/Calendar/MonthYearSelector';
+import MonthYearSelector from '@/components/Calendar/MonthYearSelector'
 
 const styles = StyleSheet.create({
   root: {
@@ -37,12 +37,12 @@ const styles = StyleSheet.create({
     height: 30,
     borderRadius: 10,
   },
-});
+})
 
 export default function CalendarScreen() {
   // const INITIAL_DATE = Date.now().toString();
-  const INITIAL_DATE = '2020-02-02';
-  const [selected, setSelected] = useState(INITIAL_DATE);
+  const INITIAL_DATE = '2020-02-02'
+  const [selected, setSelected] = useState(INITIAL_DATE)
   const monthFull = [
     'January',
     'February',
@@ -56,58 +56,58 @@ export default function CalendarScreen() {
     'October',
     'November',
     'December',
-  ];
+  ]
 
-  const Year = [2020, 2021, 2022, 2023, 2024, 2025, 2026];
+  const Year = [2020, 2021, 2022, 2023, 2024, 2025, 2026]
 
-  const [month, setMonth] = useState<number>(new Date().getMonth());
-  const [year, setYear] = useState<number>(new Date().getFullYear());
-  const [monthIncrement, setMonthIncrement] = useState<number>(0);
-  const [yearIncrement, setYearIncrement] = useState<number>(0);
+  const [month, setMonth] = useState<number>(new Date().getMonth())
+  const [year, setYear] = useState<number>(new Date().getFullYear())
+  const [monthIncrement, setMonthIncrement] = useState<number>(0)
+  const [yearIncrement, setYearIncrement] = useState<number>(0)
 
-  const [currentDate, setCurrentDate] = useState(new Date());
-  const [date] = useState(new Date());
+  const [currentDate, setCurrentDate] = useState(new Date())
+  const [date] = useState(new Date())
 
   const onDayPress: CalendarProps['onDayPress'] = useCallback(day => {
-    console.log(day.dateString);
-    setSelected(day.dateString);
-  }, []);
+    console.log(day.dateString)
+    setSelected(day.dateString)
+  }, [])
 
   // const date = new Date();
   const handleChevronUpPressMonth = () => {
-    console.log(monthIncrement);
-    setMonthIncrement(monthIncrement + 1);
+    console.log(monthIncrement)
+    setMonthIncrement(monthIncrement + 1)
 
-    const updatedDate = new Date(date.setMonth(date.getMonth() + 1));
+    const updatedDate = new Date(date.setMonth(date.getMonth() + 1))
 
-    setMonth(updatedDate.getMonth());
-    setCurrentDate(updatedDate);
-  };
+    setMonth(updatedDate.getMonth())
+    setCurrentDate(updatedDate)
+  }
 
   const handleChevronDownPressMonth = () => {
-    setMonthIncrement(monthIncrement - 1);
+    setMonthIncrement(monthIncrement - 1)
 
-    const updatedDate = new Date(date.setMonth(date.getMonth() - 1));
+    const updatedDate = new Date(date.setMonth(date.getMonth() - 1))
 
-    setMonth(updatedDate.getMonth());
-    setCurrentDate(updatedDate);
-  };
+    setMonth(updatedDate.getMonth())
+    setCurrentDate(updatedDate)
+  }
 
   const handleChevronUpPressYear = () => {
-    setYearIncrement(yearIncrement + 1);
-    const updatedYear = date.getFullYear() + 1;
-    date.setFullYear(updatedYear);
-    setYear(updatedYear);
-    setCurrentDate(date);
-  };
+    setYearIncrement(yearIncrement + 1)
+    const updatedYear = date.getFullYear() + 1
+    date.setFullYear(updatedYear)
+    setYear(updatedYear)
+    setCurrentDate(date)
+  }
 
   const handleChevronDownPressYear = () => {
-    setYearIncrement(yearIncrement - 1);
-    const updatedYear = date.getFullYear() - 1;
-    date.setFullYear(updatedYear);
-    setYear(updatedYear);
-    setCurrentDate(date);
-  };
+    setYearIncrement(yearIncrement - 1)
+    const updatedYear = date.getFullYear() - 1
+    date.setFullYear(updatedYear)
+    setYear(updatedYear)
+    setCurrentDate(date)
+  }
 
   const marked = useMemo(() => {
     return {
@@ -117,8 +117,8 @@ export default function CalendarScreen() {
         selectedColor: 'orange',
         selectedTextColor: 'red',
       },
-    };
-  }, [selected]);
+    }
+  }, [selected])
 
   return (
     <View style={styles.root}>
@@ -146,7 +146,7 @@ export default function CalendarScreen() {
       <Calendar
         // Callback which gets executed when visible months change in scroll view. Default = undefined
         onVisibleMonthsChange={months => {
-          console.log('now these months are visible', months);
+          console.log('now these months are visible', months)
         }}
         key={currentDate + ''}
         current={currentDate.toString()}
@@ -172,13 +172,13 @@ export default function CalendarScreen() {
         maxDate={'2027-05-30'}
         // Handler which gets executed on day long press. Default = undefined
         onDayLongPress={day => {
-          console.log('selected day', day);
+          console.log('selected day', day)
         }}
         // Month format in calendar title. Formatting values: http://arshaw.com/xdate/#Formatting
         monthFormat={'MMMM yyyy'}
         // Handler which gets executed when visible month changes in calendar. Default = undefined
         onMonthChange={monthss => {
-          console.log('month changed', monthss);
+          console.log('month changed', monthss)
         }}
         // Hide month navigation arrows. Default = false
         hideArrows={true}
@@ -225,7 +225,7 @@ export default function CalendarScreen() {
         }}
       />
     </View>
-  );
+  )
 }
 
 // const styles = StyleSheet.create({

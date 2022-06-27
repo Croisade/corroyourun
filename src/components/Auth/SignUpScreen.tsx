@@ -1,28 +1,28 @@
-import {useNavigation} from '@react-navigation/native';
-import React, {useState} from 'react';
-import {View, Text, StyleSheet, ScrollView, TextInput} from 'react-native';
-import {Formik} from 'formik';
-import {COLORS} from '@/components/theme';
-import CustomInput from '../Common/CustomInput';
-import CustomButton from '../Common/Button';
+import {useNavigation} from '@react-navigation/native'
+import React, {useState} from 'react'
+import {View, Text, StyleSheet, ScrollView, TextInput} from 'react-native'
+import {Formik} from 'formik'
+import {COLORS} from '@/components/theme'
+import CustomInput from '../Common/CustomInput'
+import CustomButton from '../Common/Button'
 
 export default function SignUpScreen() {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-  const [email, setEmail] = useState('');
+  const [username, setUsername] = useState('')
+  const [password, setPassword] = useState('')
+  const [email, setEmail] = useState('')
 
-  const navigation = useNavigation();
+  const navigation = useNavigation()
   const onRegisterPress = () => {
-    console.warn('Sign in');
+    console.warn('Sign in')
 
-    navigation.navigate('ConfirmEmail');
-  };
+    navigation.navigate('ConfirmEmail')
+  }
 
   const onCreateAccountPress = () => {
-    console.warn('create account');
+    console.warn('create account')
 
-    navigation.navigate('SignIn');
-  };
+    navigation.navigate('SignIn')
+  }
 
   return (
     <ScrollView>
@@ -31,8 +31,8 @@ export default function SignUpScreen() {
         <Formik
           initialValues={{email: '', password: ''}}
           onSubmit={values => {
-            navigation.navigate('ConfirmEmail');
-            console.log(values);
+            navigation.navigate('ConfirmEmail')
+            console.log(values)
           }}>
           {({handleChange, handleBlur, handleSubmit, values}) => (
             <View style={{width: '80%'}}>
@@ -72,7 +72,7 @@ export default function SignUpScreen() {
         />
       </View>
     </ScrollView>
-  );
+  )
 }
 
 const styles = StyleSheet.create({
@@ -108,4 +108,4 @@ const styles = StyleSheet.create({
   link: {
     color: '#FD8D75',
   },
-});
+})

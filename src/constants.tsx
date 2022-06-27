@@ -4,6 +4,6 @@ export const URL = {
   requestFeature:
     'https://github.com/Croisade/corroyourun/issues/new?assignees=&labels=&template=feature_request.md&title=',
   Forums: 'https://github.com/Croisade/corroyourun/discussions',
-};
+}
 
-export default {};
+export default {}

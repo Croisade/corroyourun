@@ -1,5 +1,5 @@
-import * as React from 'react';
-import {View, Text} from 'react-native';
+import * as React from 'react'
+import {View, Text} from 'react-native'
 
 export default function DetailsScreen({navigation}) {
   return (
@@ -10,5 +10,5 @@ export default function DetailsScreen({navigation}) {
         Details Screen
       </Text>
     </View>
-  );
+  )
 }
