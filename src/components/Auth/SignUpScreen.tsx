@@ -1,17 +1,32 @@
 import {useNavigation} from '@react-navigation/native'
-import React, {useState} from 'react'
-import {View, Text, StyleSheet, ScrollView, TextInput} from 'react-native'
+import React, {useEffect} from 'react'
+import {
+  View,
+  Text,
+  StyleSheet,
+  ScrollView,
+  TextInput,
+  ActivityIndicator,
+} from 'react-native'
 import {Formik} from 'formik'
 import {COLORS} from '@/components/theme'
-import CustomInput from '../Common/CustomInput'
 import CustomButton from '../Common/Button'
+import {useDispatch, useSelector} from 'react-redux'
+import {doRegister} from '@/redux/sessionSlice'
 
 export default function SignUpScreen() {
-  const [username, setUsername] = useState('')
-  const [password, setPassword] = useState('')
-  const [email, setEmail] = useState('')
-
+  const dispatch = useDispatch()
   const navigation = useNavigation()
+
+  // @ts-ignore
+  const sessionStatus = useSelector(state => state.session.status)
+
+  useEffect(() => {
+    if (sessionStatus === 'succeeded') {
+      navigation.navigate('SignIn')
+    }
+  }, [sessionStatus, navigation])
+
   const onRegisterPress = () => {
     console.warn('Sign in')
 
@@ -23,16 +38,24 @@ export default function SignUpScreen() {
 
     navigation.navigate('SignIn')
   }
-
-  return (
-    <ScrollView>
+  let content
+  if (sessionStatus === 'loading') {
+    content = (
+      <>
+        <ActivityIndicator />
+      </>
+    )
+  } else {
+    content = (
       <View style={styles.root}>
         <Text style={styles.title}>Create Account</Text>
         <Formik
           initialValues={{email: '', password: ''}}
-          onSubmit={values => {
-            navigation.navigate('ConfirmEmail')
-            console.log(values)
+          onSubmit={(values, {setSubmitting}) => {
+            dispatch(
+              doRegister({email: values.email, password: values.password}),
+            )
+            setSubmitting(false)
           }}>
           {({handleChange, handleBlur, handleSubmit, values}) => (
             <View style={{width: '80%'}}>
@@ -71,8 +94,10 @@ export default function SignUpScreen() {
           type={'TERTIARY'}
         />
       </View>
-    </ScrollView>
-  )
+    )
+  }
+
+  return <ScrollView>{content}</ScrollView>
 }
 
 const styles = StyleSheet.create({

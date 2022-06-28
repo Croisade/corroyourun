@@ -14,17 +14,6 @@ export const onUserLogin = ({email, password}) => {
   }
 }
 
-export const onFetchRun = () => {
-  return async dispatch => {
-    try {
-      const response = {data: [{name: 'MacbookPro', price: '1500'}]}
-      dispatch({type: 'FETCH_RUNS', payload: response.data})
-    } catch (error) {
-      dispatch({type: 'ON_ERROR', payload: error})
-    }
-  }
-}
-
 // reducers
 
 const userReducer = (state = {}, action) => {

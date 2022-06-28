@@ -13,6 +13,5 @@ export default async ({authenticated = true, ...rest}) => {
       ...(authenticated && {Authorization: `Bearer ${jwt}`}),
     },
   }
-
   return instance({...defaults, ...rest})
 }

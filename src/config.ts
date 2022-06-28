@@ -2,7 +2,7 @@ import env from '@/utils/env'
 
 const CONFIG = {
   default: {
-    chimichangaApiUrl: 'https://localhost:3080/v1',
+    chimichangaApiUrl: 'http://localhost:9090/v1',
   },
   production: {
     chimichangaApiUrl: '',
