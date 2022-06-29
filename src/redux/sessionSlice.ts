@@ -1,24 +1,28 @@
 import {createSlice, createAsyncThunk} from '@reduxjs/toolkit'
 import * as sessionAPI from '@/api/session'
+import * as utils from '@/utils/session'
 
-export const counterSlice = createSlice({
+export const sessionSlice = createSlice({
   name: 'session',
   initialState: {
-    JWT: '',
+    token: '',
     refreshToken: '',
     status: 'idle',
     error: null as string | null,
   },
   reducers: {
-    // doLogin: (state, action) => {
-    //   return {...state, action}
-    // },
-    // doRegister: (state, action) => {
-    //   return {...state, action}
-    // },
-    // onError: (state, action) => {
-    //   return {...state, error: action}
-    // },
+    //@TODO reducer to set status to idle
+    refreshToken: (state, action) => {
+      state.token = action.payload.token
+      state.refreshToken = action.payload.refreshToken
+    },
+    logout: (state, action) => {
+      state.token = ''
+      state.refreshToken = ''
+    },
+    setSessionStatusToIdle: state => {
+      state.status = 'idle'
+    },
   },
   extraReducers(builder) {
     builder
@@ -27,11 +31,24 @@ export const counterSlice = createSlice({
       })
       .addCase(doRegister.fulfilled, (state, action) => {
         state.status = 'succeeded'
-        // Add any fetched posts to the array
-        // const {jwt, refreshJWT} = action.payload
-        // return {...state, jwt, refreshJWT, status: 'succeeded'}
       })
       .addCase(doRegister.rejected, (state, action) => {
+        state.status = 'failed'
+        if (action.error.message === undefined) {
+          state.error = 'message was undefined'
+        } else {
+          state.error = action.error.message
+        }
+      })
+      .addCase(login.pending, (state, action) => {
+        state.status = 'loading'
+      })
+      .addCase(login.fulfilled, (state, action) => {
+        state.status = 'succeeded'
+        state.token = action.payload.token
+        state.refreshToken = action.payload.refreshToken
+      })
+      .addCase(login.rejected, (state, action) => {
         state.status = 'failed'
         if (action.error.message === undefined) {
           state.error = 'message was undefined'
@@ -42,7 +59,7 @@ export const counterSlice = createSlice({
   },
 })
 
-// export const {doLogin} = counterSlice.actions
+export const {setSessionStatusToIdle} = sessionSlice.actions
 
 interface Login {
   email: string
@@ -58,4 +75,32 @@ export const doRegister = createAsyncThunk(
   },
 )
 
-export default counterSlice.reducer
+export const login = createAsyncThunk(
+  'session/login',
+  async (loginCredentials: Login) => {
+    const {email, password} = loginCredentials
+    const response = await sessionAPI.login(email, password)
+    await utils.setJWT(response.data.token)
+    await utils.setRefreshJWT(response.data.refreshToken)
+    return response.data
+  },
+)
+
+export const refreshToken = createAsyncThunk(
+  'session/refreshToken',
+  async () => {
+    const response = await sessionAPI.renewJWT()
+    await utils.setJWT(response.data.token)
+    await utils.setRefreshJWT(response.data.refreshToken)
+    return response.data
+  },
+)
+
+export const logout = createAsyncThunk('session/logout', async () => {
+  const response = await sessionAPI.logout()
+  await utils.clearJWT()
+  await utils.clearRefreshJWT()
+  return response.data
+})
+
+export default sessionSlice.reducer

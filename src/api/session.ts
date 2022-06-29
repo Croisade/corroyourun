@@ -1,17 +1,12 @@
 import chimichanga from '@/utils/request/chimichanga'
 import * as utils from '@/utils/session'
 import * as accountUtils from '@/utils/account'
+import {RegisterResponse} from '@/api/api'
 import {AxiosResponse} from 'axios'
 
-type RegisterResponsee = {
-  accountId: string
-  email: string
-  password: string
-  firstName: string
-  lastName: string
+type LoginResponse = {
+  token: string
   refreshToken: string
-  createdAt: string
-  updatedAt: string
 }
 
 export const register = async (email: string, password: string) => {
@@ -20,16 +15,16 @@ export const register = async (email: string, password: string) => {
     method: 'POST',
     data: {email, password},
     authenticated: false,
-  }) as Promise<AxiosResponse<RegisterResponsee, any>>
+  }) as Promise<AxiosResponse<RegisterResponse, any>>
 }
 
-export const authenticate = async (email: string, password: string) => {
+export const login = async (email: string, password: string) => {
   return chimichanga({
     url: 'account/login',
     method: 'PUT',
     data: {email, password},
     authenticated: false,
-  })
+  }) as Promise<AxiosResponse<LoginResponse, any>>
 }
 
 export const logout = async () => {
@@ -38,7 +33,6 @@ export const logout = async () => {
     url: 'account/logout',
     method: 'PUT',
     data: {accountId},
-    authenticated: false,
   })
 }
 
@@ -48,5 +42,5 @@ export const renewJWT = async () => {
     url: 'account/token',
     method: 'PUT',
     data: {refreshToken},
-  })
+  }) as Promise<AxiosResponse<LoginResponse, any>>
 }

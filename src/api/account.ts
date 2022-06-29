@@ -1,13 +1,13 @@
 import chimichanga from '@/utils/request/chimichanga'
 import * as accountUtils from '@/utils/account'
+import {RegisterResponse} from '@/api/api'
+import {AxiosResponse} from 'axios'
 
-export const getAccount = async (email: string, password: string) => {
-  const accountId = await accountUtils.getAccountId()
+export const getAccount = async (email: string) => {
   return chimichanga({
-    url: `account/get/${accountId}`,
+    url: `account/get/${email}`,
     method: 'GET',
-    data: {email, password},
-  })
+  }) as Promise<AxiosResponse<RegisterResponse, any>>
 }
 
 export const deleteAccount = async () => {
