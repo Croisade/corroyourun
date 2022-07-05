@@ -51,10 +51,10 @@ export default function InformationScreen({route, navigation}) {
     runExist = false,
   }: {
     time: string
-    distance: string
-    speed: string
-    lap: string
-    incline: string
+    distance: number
+    speed: number
+    lap: number
+    incline: number
     runExist?: boolean
   } = route.params
 
@@ -122,27 +122,51 @@ export default function InformationScreen({route, navigation}) {
         <View style={{marginTop: 20}}>
           <Formik
             initialValues={{
-              distance: distance ? distance : '',
-              speed: speed ? speed : '',
-              lap: lap ? lap : '',
-              incline: incline ? incline : '',
+              distance: distance ? distance.toString() : '',
+              speed: speed ? speed.toString() : '',
+              lap: lap ? lap.toString() : '',
+              incline: incline ? incline.toString() : '',
             }}
             onSubmit={async (values, {setSubmitting}) => {
               const timeString = time.toString()
               try {
                 runExist
                   ? await updateRun({
-                      speed: parseFloat(values.speed),
-                      lap: parseInt(values.lap, 10),
-                      incline: parseFloat(values.incline),
-                      distance: parseFloat(values.distance),
+                      speed:
+                        typeof values.speed === 'string'
+                          ? parseFloat(values.speed)
+                          : values.speed,
+                      lap:
+                        typeof values.lap === 'string'
+                          ? parseInt(values.lap, 10)
+                          : values.lap,
+                      incline:
+                        typeof values.incline === 'string'
+                          ? parseFloat(values.incline)
+                          : values.incline,
+                      distance:
+                        typeof values.distance === 'string'
+                          ? parseFloat(values.distance)
+                          : values.distance,
                       time: timeString,
                     })
                   : await createRun({
-                      speed: parseFloat(values.speed),
-                      lap: parseInt(values.lap, 10),
-                      incline: parseFloat(values.incline),
-                      distance: parseFloat(values.distance),
+                      speed:
+                        typeof values.speed === 'string'
+                          ? parseFloat(values.speed)
+                          : values.speed,
+                      lap:
+                        typeof values.lap === 'string'
+                          ? parseInt(values.lap, 10)
+                          : values.lap,
+                      incline:
+                        typeof values.incline === 'string'
+                          ? parseFloat(values.incline)
+                          : values.incline,
+                      distance:
+                        typeof values.distance === 'string'
+                          ? parseFloat(values.distance)
+                          : values.distance,
                       time: timeString,
                     })
                 setSubmitting(false)
