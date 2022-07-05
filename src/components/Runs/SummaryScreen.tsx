@@ -20,7 +20,6 @@ export default function InformationScreen({route, navigation}) {
   const [walkFocus, setWalkFocus] = useState(false)
   const [runFocus, setRunFocus] = useState(true)
   const [bikeFocus, setBikeFocus] = useState(false)
-  const [isUpdated, setIsUpdated] = useState(false)
 
   const dispatch = useDispatch()
 
@@ -49,6 +48,7 @@ export default function InformationScreen({route, navigation}) {
     lap,
     incline,
     runExist = false,
+    runId,
   }: {
     time: string
     distance: number
@@ -56,6 +56,7 @@ export default function InformationScreen({route, navigation}) {
     lap: number
     incline: number
     runExist?: boolean
+    runId?: string
   } = route.params
 
   return (
@@ -132,6 +133,7 @@ export default function InformationScreen({route, navigation}) {
               try {
                 runExist
                   ? await updateRun({
+                      runId: runId!,
                       speed:
                         typeof values.speed === 'string'
                           ? parseFloat(values.speed)

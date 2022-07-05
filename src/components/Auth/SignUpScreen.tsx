@@ -12,7 +12,7 @@ import {Formik} from 'formik'
 import {COLORS} from '@/components/theme'
 import CustomButton from '../Common/Button'
 import {useDispatch, useSelector} from 'react-redux'
-import {doRegister} from '@/redux/sessionSlice'
+import {doRegister, setSessionStatusToIdle} from '@/redux/sessionSlice'
 
 export default function SignUpScreen() {
   const dispatch = useDispatch()
@@ -24,8 +24,9 @@ export default function SignUpScreen() {
   useEffect(() => {
     if (sessionStatus === 'succeeded') {
       navigation.navigate('SignIn')
+      return dispatch(setSessionStatusToIdle())
     }
-  }, [sessionStatus, navigation])
+  }, [sessionStatus, navigation, dispatch])
 
   const onRegisterPress = () => {
     console.warn('Sign in')

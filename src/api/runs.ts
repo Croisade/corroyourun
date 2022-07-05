@@ -63,12 +63,14 @@ export const updateRun = async ({
   distance,
   lap,
   incline,
+  runId,
 }: {
   speed: number
   time: string
   distance: number
   lap: number
   incline: number
+  runId: string
 }) => {
   const accountId = await accountUtils.getAccountId()
   return chimichanga({
@@ -76,6 +78,7 @@ export const updateRun = async ({
     method: 'PUT',
     data: {
       accountId,
+      runId,
       ...(speed && {speed}),
       ...(time && {time}),
       ...(distance && {distance}),

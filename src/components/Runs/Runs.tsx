@@ -50,6 +50,7 @@ export default function Runs({
       lap: runs.lap,
       incline: runs.incline,
       runExist: true,
+      runId: runs.runId,
     })
   }
 

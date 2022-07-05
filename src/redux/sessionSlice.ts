@@ -16,7 +16,7 @@ export const sessionSlice = createSlice({
       state.token = action.payload.token
       state.refreshToken = action.payload.refreshToken
     },
-    logout: (state, action) => {
+    logout: state => {
       state.token = ''
       state.refreshToken = ''
     },

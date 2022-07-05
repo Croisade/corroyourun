@@ -30,7 +30,7 @@ export default function HomeScreen({route, navigation}) {
   }
 
   // setIsUpdated(isUpdated)
-  console.log(runIsUpdated)
+
   useEffect(() => {
     async function fetchData() {
       try {
@@ -40,10 +40,10 @@ export default function HomeScreen({route, navigation}) {
         console.log(error.response.data)
       }
     }
-
+    console.log('twice')
     fetchData()
     dispatch(setIsUpdatedFalse())
-  }, [dispatch, runIsUpdated, setIsUpdated])
+  }, [dispatch, runIsUpdated])
 
   return (
     <ScrollView style={[styles.container, {height: height}]}>
@@ -63,7 +63,7 @@ export default function HomeScreen({route, navigation}) {
           <Runs runs={run} />
         ))} */}
 
-        {runs.slice(0, 4).map(run => (
+        {runs.slice(0, 3).map(run => (
           <Runs runs={run} key={run.runId} />
         ))}
         {/* <Runs />
