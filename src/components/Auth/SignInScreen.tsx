@@ -16,11 +16,13 @@ import {Formik} from 'formik'
 import {useDispatch, useSelector} from 'react-redux'
 import {login, setSessionStatusToIdle} from '@/redux/sessionSlice'
 import {getAccount, setAccountStatusToIdle} from '@/redux/accountSlice'
+import {showMessage} from 'react-native-flash-message'
 
 export default function SettingsScreen() {
   const [email, setEmail] = useState('')
   const dispatch = useDispatch()
   const sessionStatus = useSelector(state => state.session.status)
+  const sessionError = useSelector(state => state.session.error)
   const state = useSelector(state => state)
   const {height} = useWindowDimensions()
   const navigation = useNavigation()
@@ -41,9 +43,6 @@ export default function SettingsScreen() {
   }
 
   useEffect(() => {
-    // console.log(sessionStatus)
-    // console.log(state)
-    // console.log('useEffect Email', email)
     if (sessionStatus === 'succeeded') {
       dispatch(getAccount(email))
       dispatch(setAccountStatusToIdle())
@@ -51,7 +50,16 @@ export default function SettingsScreen() {
       console.log(state)
       navigation.navigate('Home')
     }
-  }, [navigation, sessionStatus, dispatch, email, state])
+    if (sessionStatus === 'failed') {
+      showMessage({
+        message: 'Failed to login:',
+        description: sessionError,
+        type: 'danger',
+      })
+      dispatch(setAccountStatusToIdle())
+      dispatch(setSessionStatusToIdle())
+    }
+  }, [navigation, sessionStatus, dispatch, email, state, sessionError])
 
   let content
   if (sessionStatus === 'loading') {

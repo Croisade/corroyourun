@@ -6,7 +6,7 @@ import React, {useRef} from 'react'
 import useState from 'react-usestateref'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 
-export default function TimerScreen({navigation}) {
+export default function TimerScreen({route, navigation}) {
   const [hasStarted, setHasStarted] = useState(false)
   const [time, setTime, timeRef] = useState<number>()
   const [status, setStatus] = useState(false)

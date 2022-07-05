@@ -10,11 +10,19 @@ import {
 import {COLORS} from '@/components/theme'
 import {Formik} from 'formik'
 import Button from '@/components/Common/Button'
+import {createRun, updateRun} from '@/api/runs'
+import {showMessage} from 'react-native-flash-message'
+import {setIsUpdatedTrue} from '@/redux/runSlice'
+import {useDispatch} from 'react-redux'
 
 export default function InformationScreen({route, navigation}) {
+  //@TODO include which rtype of run in the api call
   const [walkFocus, setWalkFocus] = useState(false)
   const [runFocus, setRunFocus] = useState(true)
   const [bikeFocus, setBikeFocus] = useState(false)
+  const [isUpdated, setIsUpdated] = useState(false)
+
+  const dispatch = useDispatch()
 
   const handleWalkPress = () => {
     setWalkFocus(true)
@@ -40,15 +48,16 @@ export default function InformationScreen({route, navigation}) {
     speed,
     lap,
     incline,
+    runExist = false,
   }: {
     time: string
     distance: string
     speed: string
     lap: string
     incline: string
+    runExist?: boolean
   } = route.params
 
-  console.log(time, distance, speed, lap, incline)
   return (
     <ScrollView>
       <View style={styles.root}>
@@ -118,7 +127,37 @@ export default function InformationScreen({route, navigation}) {
               lap: lap ? lap : '',
               incline: incline ? incline : '',
             }}
-            onSubmit={values => console.log(values)}>
+            onSubmit={async (values, {setSubmitting}) => {
+              const timeString = time.toString()
+              try {
+                runExist
+                  ? await updateRun({
+                      speed: parseFloat(values.speed),
+                      lap: parseInt(values.lap, 10),
+                      incline: parseFloat(values.incline),
+                      distance: parseFloat(values.distance),
+                      time: timeString,
+                    })
+                  : await createRun({
+                      speed: parseFloat(values.speed),
+                      lap: parseInt(values.lap, 10),
+                      incline: parseFloat(values.incline),
+                      distance: parseFloat(values.distance),
+                      time: timeString,
+                    })
+                setSubmitting(false)
+              } catch (error) {
+                showMessage({
+                  message: 'Failed to Submit Summary:',
+                  // @ts-ignore
+                  description: error.message,
+                  type: 'danger',
+                })
+              }
+
+              dispatch(setIsUpdatedTrue())
+              navigation.navigate('RunsHome')
+            }}>
             {({handleBlur, handleSubmit, values, setFieldValue}) => (
               <View style={{flexDirection: 'column'}}>
                 <View style={{flex: 1}}>
@@ -126,9 +165,7 @@ export default function InformationScreen({route, navigation}) {
                     <Text style={styles.text}>Distance</Text>
                     <TextInput
                       style={styles.input}
-                      onChangeText={value =>
-                        setFieldValue('distance', parseFloat(value))
-                      }
+                      onChangeText={value => setFieldValue('distance', value)}
                       onBlur={handleBlur('distance')}
                       value={values.distance}
                       placeholder="Distance"
@@ -138,9 +175,7 @@ export default function InformationScreen({route, navigation}) {
                     <Text style={styles.text}>Speed</Text>
                     <TextInput
                       style={styles.input}
-                      onChangeText={value =>
-                        setFieldValue('speed', parseFloat(value))
-                      }
+                      onChangeText={value => setFieldValue('speed', value)}
                       onBlur={handleBlur('speed')}
                       value={values.speed}
                       placeholder="Speed"
@@ -150,9 +185,7 @@ export default function InformationScreen({route, navigation}) {
                     <Text style={styles.text}>Lap</Text>
                     <TextInput
                       style={styles.input}
-                      onChangeText={value =>
-                        setFieldValue('lap', parseFloat(value))
-                      }
+                      onChangeText={value => setFieldValue('lap', value)}
                       onBlur={handleBlur('lap')}
                       value={values.lap}
                       placeholder="Lap"
@@ -162,9 +195,7 @@ export default function InformationScreen({route, navigation}) {
                     <Text style={styles.text}>Incline</Text>
                     <TextInput
                       style={styles.input}
-                      onChangeText={value =>
-                        setFieldValue('incline', parseFloat(value))
-                      }
+                      onChangeText={value => setFieldValue('incline', value)}
                       onBlur={handleBlur('incline')}
                       value={values.incline}
                       placeholder="Incline"

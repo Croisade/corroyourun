@@ -1,6 +1,7 @@
 import axios from 'axios'
 import config from '@/config'
 import {getJWT} from '@/utils/session'
+import merge from 'lodash/merge'
 
 const instance = axios.create()
 
@@ -13,5 +14,6 @@ export default async ({authenticated = true, ...rest}) => {
       ...(authenticated && {Authorization: `Bearer ${jwt}`}),
     },
   }
-  return instance({...defaults, ...rest})
+  // console.log(merge(defaults, rest))
+  return instance(merge(defaults, rest))
 }

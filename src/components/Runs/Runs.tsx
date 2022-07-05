@@ -7,21 +7,53 @@ import {
   Pressable,
 } from 'react-native'
 import {COLORS} from '@/components/theme'
+import {fromUnixToISOString} from '@/utils/date'
 
 import {useNavigation} from '@react-navigation/native'
 
-export default function Runs({isFocused = false}) {
+type CreatedAt = {
+  T: number
+  I: number
+}
+
+type UpdatedAt = {
+  T: number
+  I: number
+}
+
+type Runs = {
+  speed: number
+  time: string
+  distance: number
+  lap: number
+  incline: number
+  runId: string
+  accountId: string
+  createdAt: CreatedAt
+  updatedAt: UpdatedAt
+}
+
+export default function Runs({
+  runs,
+  isFocused = false,
+}: {
+  runs: Runs
+  isFocused?: boolean
+}) {
   const navigation = useNavigation()
 
   const handlePress = () => {
     navigation.navigate('Summary', {
-      distance: '3.2',
-      speed: '6',
-      time: '26:00',
-      lap: '0',
-      incline: '1',
+      distance: runs.distance,
+      speed: runs.speed,
+      time: runs.time,
+      lap: runs.lap,
+      incline: runs.incline,
+      runExist: true,
     })
   }
+
+  const createdAt = fromUnixToISOString(runs.createdAt.T)
 
   return (
     <Pressable
@@ -33,22 +65,27 @@ export default function Runs({isFocused = false}) {
           isFocused && {borderColor: COLORS.primary},
         ]}>
         <Text style={[styles.text, {fontWeight: 'bold'}]}>
-          Run August 7th, 2022
+          {/* Run August 7th, 2022 */}
+          {createdAt}
         </Text>
         <View style={{flexDirection: 'row'}}>
           <View style={{flex: 1}}>
             <Text style={styles.text}>Distance</Text>
           </View>
           <View style={{flex: 0}}>
-            <Text style={styles.text}>3.2m</Text>
+            <Text style={styles.text}>
+              {runs.distance ? runs.distance.toString() : ''}
+            </Text>
           </View>
         </View>
         <View style={{flexDirection: 'row'}}>
           <View style={{flex: 1}}>
-            <Text style={styles.text}>Pace</Text>
+            <Text style={styles.text}>Speed</Text>
           </View>
           <View style={{flex: 0}}>
-            <Text style={styles.text}>6 mph</Text>
+            <Text style={styles.text}>
+              {runs.speed ? runs.speed.toString() : ''}
+            </Text>
           </View>
         </View>
         <View style={{flexDirection: 'row'}}>
@@ -56,7 +93,7 @@ export default function Runs({isFocused = false}) {
             <Text style={styles.text}>Time</Text>
           </View>
           <View style={{flex: 0}}>
-            <Text style={styles.text}>26:00</Text>
+            <Text style={styles.text}>{runs.time}</Text>
           </View>
         </View>
       </View>

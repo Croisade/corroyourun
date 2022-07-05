@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useEffect} from 'react'
 import {
   View,
   Text,
@@ -10,13 +10,40 @@ import {
 import Runs from './Runs'
 import Button from '../Common/Button'
 import {COLORS} from '@/components/theme'
+import {fetchRuns, createRun} from '@/api/runs'
 
-export default function HomeScreen({navigation}) {
+import {setIsUpdatedTrue, setIsUpdatedFalse} from '@/redux/runSlice'
+
+import useState from 'react-usestateref'
+import {useDispatch, useSelector} from 'react-redux'
+
+export default function HomeScreen({route, navigation}) {
+  const [runs, setRuns] = useState([])
+
+  const runIsUpdated = useSelector(state => state.run.isUpdated)
+  const dispatch = useDispatch()
   const {height} = useWindowDimensions()
+  const [updated, setIsUpdated, updatedRef] = useState(false)
 
   const onRunButtonPressed = () => {
     navigation.navigate('Timer')
   }
+
+  // setIsUpdated(isUpdated)
+  console.log(runIsUpdated)
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const fetchedRuns = await fetchRuns()
+        setRuns(fetchedRuns.data)
+      } catch (error) {
+        console.log(error.response.data)
+      }
+    }
+
+    fetchData()
+    dispatch(setIsUpdatedFalse())
+  }, [dispatch, runIsUpdated, setIsUpdated])
 
   return (
     <ScrollView style={[styles.container, {height: height}]}>
@@ -31,10 +58,18 @@ export default function HomeScreen({navigation}) {
           justifyContent: 'space-between',
           marginBottom: 20,
         }}>
+        {/* if (runs)
+        {runs.map(run => (
+          <Runs runs={run} />
+        ))} */}
+
+        {runs.slice(0, 4).map(run => (
+          <Runs runs={run} key={run.runId} />
+        ))}
+        {/* <Runs />
         <Runs />
         <Runs />
-        <Runs />
-        <Runs />
+        <Runs /> */}
         <View
           style={{
             alignSelf: 'center',
