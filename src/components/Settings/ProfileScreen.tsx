@@ -1,12 +1,90 @@
 import * as React from 'react'
-import {View, Text, StyleSheet} from 'react-native'
+import {
+  View,
+  Text,
+  StyleSheet,
+  Modal,
+  TextInput,
+  Pressable,
+  Button,
+} from 'react-native'
 import URLText from '../Common/URlText'
 import {COLORS} from '../theme'
 
 import {URL} from '@/constants'
 import CommunityLinks from '@/components/Settings/CommunityLinks'
+import {RegisterResponse} from '@/api/api'
+import {useState} from 'react'
+import {Formik} from 'formik'
+import {updateAccount} from '@/api/account'
 
-export default function ProfileScreen() {
+export default function ProfileScreen({route}) {
+  const [modalPressedFN, setModalPressedFN] = useState(false)
+  const [modalPressedLN, setModalPressedLN] = useState(false)
+  const {accountInfo}: {accountInfo: RegisterResponse} = route.params
+
+  console.log(accountInfo)
+  function switchModalFn() {
+    return (
+      <Modal transparent={true} visible={modalPressedFN}>
+        <Formik
+          initialValues={{firstName: ''}}
+          onSubmit={(values, {setSubmitting}) => {
+            updateAccount(values.firstName)
+            setModalPressedFN(false)
+            setSubmitting(false)
+          }}>
+          {({handleChange, handleBlur, handleSubmit, values}) => (
+            <View>
+              <TextInput
+                onChangeText={handleChange('firstName')}
+                onBlur={handleBlur('firstName')}
+                value={values.firstName}
+              />
+
+              <Button onPress={handleSubmit} title="Submit" />
+            </View>
+          )}
+        </Formik>
+      </Modal>
+    )
+  }
+
+  function switchModalLn() {
+    return (
+      <Modal transparent={true} visible={modalPressedLN}>
+        <Formik
+          initialValues={{lastName: ''}}
+          onSubmit={(values, {setSubmitting}) => {
+            updateAccount(values.lastName)
+            setModalPressedLN(false)
+            setSubmitting(false)
+          }}>
+          {({handleChange, handleBlur, handleSubmit, values}) => (
+            <View>
+              <TextInput
+                onChangeText={handleChange('lastName')}
+                onBlur={handleBlur('lastName')}
+                value={values.lastName}
+              />
+
+              <Button onPress={handleSubmit} title="Submit" />
+            </View>
+          )}
+        </Formik>
+      </Modal>
+    )
+  }
+
+  const handleFirstNamePress = () => {
+    setModalPressedFN(true)
+    switchModalFn()
+  }
+  const handleLastNamePress = () => {
+    setModalPressedFN(true)
+    switchModalLn()
+  }
+
   return (
     <View style={styles.root}>
       <View style={{paddingLeft: 10}}>
@@ -16,10 +94,23 @@ export default function ProfileScreen() {
         <URLText text={'test@email.com'} url={URL.issues} />
 
         <Text style={[styles.text]}>First Name</Text>
-        <URLText text={'Jamal'} url={URL.issues} />
+        <Pressable onPress={handleFirstNamePress}>
+          <Text>
+            Jamal
+            {/* {accountInfo.firstName
+              ? accountInfo.firstName
+              : 'Set your first name!'} */}
+          </Text>
+        </Pressable>
 
         <Text style={[styles.text]}>Last Name</Text>
-        <URLText text={'Gardiner'} url={URL.issues} />
+        <Pressable onPress={handleLastNamePress}>
+          <Text>
+            {accountInfo.lastName
+              ? accountInfo.lastName
+              : 'Set your last name!'}
+          </Text>
+        </Pressable>
 
         <View style={styles.horizontalRule} />
         <CommunityLinks />
@@ -63,5 +154,10 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignSelf: 'center',
     fontWeight: 'bold',
+  },
+  input: {
+    height: 40,
+    margin: 12,
+    borderWidth: 1,
   },
 })

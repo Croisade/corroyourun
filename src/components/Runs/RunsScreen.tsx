@@ -12,7 +12,11 @@ import Button from '../Common/Button'
 import {COLORS} from '@/components/theme'
 import {fetchRuns, createRun} from '@/api/runs'
 
-import {setIsUpdatedTrue, setIsUpdatedFalse} from '@/redux/runSlice'
+import {
+  setIsUpdatedTrue,
+  setIsUpdatedFalse,
+  setIsUpdatedIdle,
+} from '@/redux/runSlice'
 
 import useState from 'react-usestateref'
 import {useDispatch, useSelector} from 'react-redux'
@@ -21,6 +25,8 @@ export default function HomeScreen({route, navigation}) {
   const [runs, setRuns] = useState([])
 
   const runIsUpdated = useSelector(state => state.run.isUpdated)
+  const accountId = useSelector(state => state.account.accountId)
+
   const dispatch = useDispatch()
   const {height} = useWindowDimensions()
   const [updated, setIsUpdated, updatedRef] = useState(false)
@@ -29,21 +35,22 @@ export default function HomeScreen({route, navigation}) {
     navigation.navigate('Timer')
   }
 
-  // setIsUpdated(isUpdated)
-
+  // @TODO clean this up, calls server twice don't need 3 states for isUpdated, it's being checked by accountId
   useEffect(() => {
+    console.log(runIsUpdated, accountId)
+
     async function fetchData() {
       try {
-        const fetchedRuns = await fetchRuns()
+        const fetchedRuns = await fetchRuns(accountId)
         setRuns(fetchedRuns.data)
       } catch (error) {
         console.log(error.response.data)
       }
     }
-    console.log('twice')
-    fetchData()
-    dispatch(setIsUpdatedFalse())
-  }, [dispatch, runIsUpdated])
+    if (accountId !== '') {
+      fetchData()
+    }
+  }, [accountId, dispatch, runIsUpdated])
 
   return (
     <ScrollView style={[styles.container, {height: height}]}>

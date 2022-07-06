@@ -1,22 +1,37 @@
 import {createSlice} from '@reduxjs/toolkit'
 
+// const states = ['idle', 'updating', 'updated']
+
+const initialState = {
+  isUpdated: 'idle',
+  status: 'idle',
+  error: null as string | null,
+}
+
 export const runSlice = createSlice({
   name: 'run',
-  initialState: {
-    isUpdated: false,
-    status: 'idle',
-    error: null as string | null,
-  },
+  initialState,
   reducers: {
-    setIsUpdatedTrue: state => {
-      state.isUpdated = true
+    setIsUpdatedIdle: state => {
+      state.isUpdated = 'idle'
     },
-    setIsUpdatedFalse: state => {
-      state.isUpdated = false
+    setIsUpdatedUpdating: state => {
+      state.isUpdated = 'updating'
+    },
+    setIsUpdatedUpdated: state => {
+      state.isUpdated = 'updated'
+    },
+    resetRun: state => {
+      return {state, ...initialState}
     },
   },
 })
 
-export const {setIsUpdatedFalse, setIsUpdatedTrue} = runSlice.actions
+export const {
+  resetRun,
+  setIsUpdatedIdle,
+  setIsUpdatedUpdated,
+  setIsUpdatedUpdating,
+} = runSlice.actions
 
 export default runSlice.reducer

@@ -2,6 +2,9 @@ import chimichanga from '@/utils/request/chimichanga'
 import * as accountUtils from '@/utils/account'
 import {RegisterResponse} from '@/api/api'
 import {AxiosResponse} from 'axios'
+import {useSelector} from 'react-redux'
+
+// const accountId = useSelector(state => state.account.accountId)
 
 export const createRun = async ({
   speed,
@@ -40,8 +43,8 @@ export const getRun = async () => {
   })
 }
 
-export const fetchRuns = async () => {
-  const accountId = await accountUtils.getAccountId()
+export const fetchRuns = async accountId => {
+  // const accountId = await accountUtils.getAccountId()
   return chimichanga({
     url: `/run/fetch/${accountId}`,
     method: 'GET',

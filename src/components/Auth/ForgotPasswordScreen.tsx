@@ -30,7 +30,6 @@ export default function SignUpScreen() {
         <Formik
           initialValues={{email: ''}}
           onSubmit={values => {
-            console.log(values)
             navigation.navigate('NewPassword')
           }}>
           {({handleChange, handleBlur, handleSubmit, values}) => (

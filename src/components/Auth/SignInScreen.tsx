@@ -44,10 +44,10 @@ export default function SettingsScreen() {
 
   useEffect(() => {
     if (sessionStatus === 'succeeded') {
+      console.log('email', email)
       dispatch(getAccount(email))
       dispatch(setAccountStatusToIdle())
       dispatch(setSessionStatusToIdle())
-      console.log(state)
       navigation.navigate('Home')
     }
     if (sessionStatus === 'failed') {
@@ -59,7 +59,7 @@ export default function SettingsScreen() {
       dispatch(setAccountStatusToIdle())
       dispatch(setSessionStatusToIdle())
     }
-  }, [navigation, sessionStatus, dispatch, email, state, sessionError])
+  }, [sessionStatus])
 
   let content
   if (sessionStatus === 'loading') {
@@ -86,7 +86,6 @@ export default function SettingsScreen() {
             initialValues={{email: '', password: ''}}
             onSubmit={(values, {setSubmitting}) => {
               // navigation.navigate('Home')
-              console.log(values)
               setEmail(values.email)
               dispatch(login({email: values.email, password: values.password}))
               setSubmitting(false)

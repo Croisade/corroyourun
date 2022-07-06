@@ -12,7 +12,12 @@ import {Formik} from 'formik'
 import Button from '@/components/Common/Button'
 import {createRun, updateRun} from '@/api/runs'
 import {showMessage} from 'react-native-flash-message'
-import {setIsUpdatedTrue} from '@/redux/runSlice'
+import {
+  setIsUpdatedFalse,
+  setIsUpdatedTrue,
+  setIsUpdatedUpdated,
+  setIsUpdatedUpdating,
+} from '@/redux/runSlice'
 import {useDispatch} from 'react-redux'
 
 export default function InformationScreen({route, navigation}) {
@@ -131,6 +136,7 @@ export default function InformationScreen({route, navigation}) {
             onSubmit={async (values, {setSubmitting}) => {
               const timeString = time.toString()
               try {
+                dispatch(setIsUpdatedUpdating())
                 runExist
                   ? await updateRun({
                       runId: runId!,
@@ -181,8 +187,8 @@ export default function InformationScreen({route, navigation}) {
                 })
               }
 
-              dispatch(setIsUpdatedTrue())
               navigation.navigate('RunsHome')
+              dispatch(setIsUpdatedUpdated())
             }}>
             {({handleBlur, handleSubmit, values, setFieldValue}) => (
               <View style={{flexDirection: 'column'}}>

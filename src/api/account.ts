@@ -3,10 +3,19 @@ import * as accountUtils from '@/utils/account'
 import {RegisterResponse} from '@/api/api'
 import {AxiosResponse} from 'axios'
 
-export const getAccount = async (email: string) => {
+export const getAccount = async (email?: string) => {
+  let accountId
+  if (!email) {
+    accountId = await accountUtils.getAccountId()
+  }
+
   return chimichanga({
-    url: `account/get/${email}`,
+    url: 'account/get',
     method: 'GET',
+    data: {
+      ...(email && {email}),
+      ...(accountId && {accountId}),
+    },
   }) as Promise<AxiosResponse<RegisterResponse, any>>
 }
 

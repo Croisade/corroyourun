@@ -2,16 +2,21 @@ import {createSlice, createAsyncThunk} from '@reduxjs/toolkit'
 import * as accountAPI from '@/api/account'
 import * as utils from '@/utils/account'
 
+const initialState = {
+  accountId: '',
+  status: 'idle',
+  error: null as string | null,
+}
+
 export const accountSlice = createSlice({
   name: 'account',
-  initialState: {
-    accountId: '',
-    status: 'idle',
-    error: null as string | null,
-  },
+  initialState,
   reducers: {
     setAccountStatusToIdle: state => {
       state.status = 'idle'
+    },
+    resetAccount: state => {
+      return {state, ...initialState}
     },
   },
   extraReducers(builder) {
@@ -34,13 +39,12 @@ export const accountSlice = createSlice({
   },
 })
 
-export const {setAccountStatusToIdle} = accountSlice.actions
+export const {setAccountStatusToIdle, resetAccount} = accountSlice.actions
 
 export const getAccount = createAsyncThunk(
   'account/getAccount',
   async (email: string) => {
     const response = await accountAPI.getAccount(email)
-    console.log(response.data)
     await utils.setAccountId(response.data.accountId)
     return response.data
   },

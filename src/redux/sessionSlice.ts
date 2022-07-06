@@ -2,23 +2,24 @@ import {createSlice, createAsyncThunk} from '@reduxjs/toolkit'
 import * as sessionAPI from '@/api/session'
 import * as utils from '@/utils/session'
 
+const initialState = {
+  token: '',
+  refreshToken: '',
+  status: 'idle',
+  error: null as string | null,
+}
+
 export const sessionSlice = createSlice({
   name: 'session',
-  initialState: {
-    token: '',
-    refreshToken: '',
-    status: 'idle',
-    error: null as string | null,
-  },
+  initialState,
   reducers: {
     //@TODO reducer to set status to idle
     refreshToken: (state, action) => {
       state.token = action.payload.token
       state.refreshToken = action.payload.refreshToken
     },
-    logout: state => {
-      state.token = ''
-      state.refreshToken = ''
+    resetSession: state => {
+      return {state, ...initialState}
     },
     setSessionStatusToIdle: state => {
       state.status = 'idle'
@@ -59,7 +60,7 @@ export const sessionSlice = createSlice({
   },
 })
 
-export const {setSessionStatusToIdle} = sessionSlice.actions
+export const {setSessionStatusToIdle, resetSession} = sessionSlice.actions
 
 interface Login {
   email: string

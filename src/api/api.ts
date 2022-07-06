@@ -5,6 +5,16 @@ export type RegisterResponse = {
   firstName: string
   lastName: string
   refreshToken: string
-  createdAt: string
-  updatedAt: string
+  createdAt: CreatedAt
+  updatedAt: UpdatedAt
+}
+
+type CreatedAt = {
+  T: number
+  I: number
+}
+
+type UpdatedAt = {
+  T: number
+  I: number
 }
