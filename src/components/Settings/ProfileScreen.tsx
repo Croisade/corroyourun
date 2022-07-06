@@ -8,10 +8,8 @@ import {
   Pressable,
   Button,
 } from 'react-native'
-import URLText from '../Common/URlText'
 import {COLORS} from '../theme'
 
-import {URL} from '@/constants'
 import CommunityLinks from '@/components/Settings/CommunityLinks'
 import {RegisterResponse} from '@/api/api'
 import {useState} from 'react'
@@ -23,7 +21,6 @@ export default function ProfileScreen({route}) {
   const [modalPressedLN, setModalPressedLN] = useState(false)
   const {accountInfo}: {accountInfo: RegisterResponse} = route.params
 
-  console.log(accountInfo)
   function switchModalFn() {
     return (
       <Modal transparent={true} visible={modalPressedFN}>
@@ -91,21 +88,20 @@ export default function ProfileScreen({route}) {
         <Text style={styles.header}>Profile</Text>
 
         <Text style={[styles.text]}>Email</Text>
-        <URLText text={'test@email.com'} url={URL.issues} />
+        <Text style={[styles.smallText]}>{accountInfo.email} </Text>
 
         <Text style={[styles.text]}>First Name</Text>
         <Pressable onPress={handleFirstNamePress}>
-          <Text>
-            Jamal
-            {/* {accountInfo.firstName
+          <Text style={[styles.smallText]}>
+            {accountInfo.firstName
               ? accountInfo.firstName
-              : 'Set your first name!'} */}
+              : 'Set your first name!'}
           </Text>
         </Pressable>
 
         <Text style={[styles.text]}>Last Name</Text>
         <Pressable onPress={handleLastNamePress}>
-          <Text>
+          <Text style={[styles.smallText]}>
             {accountInfo.lastName
               ? accountInfo.lastName
               : 'Set your last name!'}
@@ -143,10 +139,15 @@ const styles = StyleSheet.create({
     marginTop: 20,
     marginBottom: 7,
   },
+  smallText: {
+    color: COLORS.text,
+    marginBottom: 7,
+  },
   horizontalRule: {
     paddingTop: 10,
     borderBottomColor: COLORS.muted,
     borderBottomWidth: 2,
+    marginBottom: 20,
   },
   footer: {
     color: COLORS.text,

@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react'
-import {View, Text, StyleSheet} from 'react-native'
+import {View, Text, StyleSheet, Pressable} from 'react-native'
 
 import {COLORS} from '@/components/theme'
 import URLText from '@/components/Common/URlText'
@@ -17,7 +17,6 @@ import {resetAccount} from '@/redux/accountSlice'
 export default function SettingsScreen({navigation}) {
   const dispatch = useDispatch()
 
-  const state = useSelector(state => state)
   const [accountInfo, setAccountInfo] = useState<RegisterResponse>({
     accountId: '',
     email: '',
@@ -50,7 +49,6 @@ export default function SettingsScreen({navigation}) {
     dispatch(resetAccount())
     dispatch(resetRun())
     dispatch(resetSession())
-    console.log(state)
     navigation.navigate('SignIn')
   }
 
@@ -58,12 +56,14 @@ export default function SettingsScreen({navigation}) {
     <View style={styles.root}>
       <View style={{paddingLeft: 10}}>
         <Text style={styles.header}>Settings</Text>
-        <Text
-          style={[styles.text, {fontSize: 20, fontWeight: 'bold'}]}
+        <Pressable
           onPress={() => navigation.navigate('Profile', {accountInfo})}>
-          Profile
-        </Text>
-        <URLText text={accountInfo.email} url={URL.issues} />
+          <Text style={[styles.text, {fontSize: 20, fontWeight: 'bold'}]}>
+            Profile
+          </Text>
+          <URLText text={accountInfo.email} url={URL.issues} />
+        </Pressable>
+
         <Text onPress={signOut} style={{color: 'red'}}>
           Sign Out
         </Text>
