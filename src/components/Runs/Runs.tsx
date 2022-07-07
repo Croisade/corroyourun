@@ -7,7 +7,7 @@ import {
   Pressable,
 } from 'react-native'
 import {COLORS} from '@/components/theme'
-import {fromUnixToISOString} from '@/utils/date'
+import {fromUnixToDateString} from '@/utils/date'
 
 import {useNavigation} from '@react-navigation/native'
 
@@ -21,7 +21,7 @@ type UpdatedAt = {
   I: number
 }
 
-type Runs = {
+export type Runs = {
   speed: number
   time: string
   distance: number
@@ -54,7 +54,7 @@ export default function Runs({
     })
   }
 
-  const createdAt = fromUnixToISOString(runs.createdAt.T)
+  const createdAt = fromUnixToDateString(runs.createdAt.T)
 
   return (
     <Pressable

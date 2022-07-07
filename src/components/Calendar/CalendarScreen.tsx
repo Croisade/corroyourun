@@ -1,4 +1,4 @@
-import React, {useCallback, useMemo, useState} from 'react'
+import React, {useCallback, useEffect, useMemo, useState} from 'react'
 import {View, Text, Alert, StyleSheet} from 'react-native'
 import {
   Calendar,
@@ -10,6 +10,10 @@ import CustomInput from '@/components/Common/CustomInput'
 import {COLORS} from '../theme'
 
 import MonthYearSelector from '@/components/Calendar/MonthYearSelector'
+import {getDatesAndRunIds} from '@/utils/date'
+import {fetchRuns} from '@/api/runs'
+import {useDispatch, useSelector} from 'react-redux'
+import merge from 'lodash/merge'
 
 const styles = StyleSheet.create({
   root: {
@@ -40,7 +44,6 @@ const styles = StyleSheet.create({
 })
 
 export default function CalendarScreen() {
-  // const INITIAL_DATE = Date.now().toString();
   const INITIAL_DATE = '2020-02-02'
   const [selected, setSelected] = useState(INITIAL_DATE)
   const monthFull = [
@@ -59,6 +62,23 @@ export default function CalendarScreen() {
   ]
 
   const Year = [2020, 2021, 2022, 2023, 2024, 2025, 2026]
+
+  const runIsUpdated = useSelector(state => state.run.isUpdated)
+  const dispatch = useDispatch()
+
+  const [runs, setRuns] = useState([])
+
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const fetchedRuns = await fetchRuns()
+        setRuns(fetchedRuns.data)
+      } catch (error) {
+        console.log(error.response.data)
+      }
+    }
+    fetchData()
+  }, [])
 
   const [month, setMonth] = useState<number>(new Date().getMonth())
   const [year, setYear] = useState<number>(new Date().getFullYear())
@@ -110,15 +130,18 @@ export default function CalendarScreen() {
   }
 
   const marked = useMemo(() => {
-    return {
-      [selected]: {
-        selected: true,
-        disableTouchEvent: true,
-        selectedColor: 'orange',
-        selectedTextColor: 'red',
+    return merge(
+      {
+        [selected]: {
+          selected: true,
+          disableTouchEvent: true,
+          selectedColor: 'orange',
+          selectedTextColor: 'red',
+        },
       },
-    }
-  }, [selected])
+      getDatesAndRunIds(runs),
+    )
+  }, [runs, selected])
 
   return (
     <View style={styles.root}>
@@ -151,6 +174,7 @@ export default function CalendarScreen() {
         key={currentDate + ''}
         current={currentDate.toString()}
         onDayPress={onDayPress}
+        // markingType={'multi-dot'}
         markedDates={marked}
         // Max amount of months allowed to scroll to the past. Default = 50
         // pastScrollRange={5}
@@ -227,13 +251,3 @@ export default function CalendarScreen() {
     </View>
   )
 }
-
-// const styles = StyleSheet.create({
-//   container: {
-//     flex: 1,
-//     // justifyContent: 'space-between',
-//     backgroundColor: '#fff',
-//     // padding: 20,
-//     // margin: 10,
-//   },
-// });

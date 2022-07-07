@@ -43,10 +43,15 @@ export const getRun = async () => {
   })
 }
 
-export const fetchRuns = async accountId => {
-  // const accountId = await accountUtils.getAccountId()
+export const fetchRuns = async (accountId?: string) => {
+  let id
+  if (!accountId) {
+    id = await accountUtils.getAccountId()
+  } else {
+    id = accountId
+  }
   return chimichanga({
-    url: `/run/fetch/${accountId}`,
+    url: `/run/fetch/${id}`,
     method: 'GET',
   })
 }
