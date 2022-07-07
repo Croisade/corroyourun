@@ -8,7 +8,6 @@ import {
   ScrollView,
   TextInput,
 } from 'react-native'
-import CustomInput from '../Common/CustomInput'
 import CustomButton from '../Common/Button'
 import {Formik} from 'formik'
 import {COLORS} from '@/components/theme'

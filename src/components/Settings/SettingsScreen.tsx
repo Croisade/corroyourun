@@ -1,18 +1,15 @@
-import React, {useEffect, useState} from 'react'
-import {View, Text, StyleSheet, Pressable} from 'react-native'
-
-import {COLORS} from '@/components/theme'
-import URLText from '@/components/Common/URlText'
-import CommunityLinks from '@/components/Settings/CommunityLinks'
-import {URL} from '@/constants'
 import {getAccount} from '@/api/account'
 import {RegisterResponse} from '@/api/api'
-import {clearJWT} from '@/utils/session'
-import {clearAccountId} from '@/utils/account'
-import {useDispatch, useSelector} from 'react-redux'
+import CommunityLinks from '@/components/Settings/CommunityLinks'
+import {COLORS} from '@/components/theme'
+import {resetAccount} from '@/redux/accountSlice'
 import {resetRun} from '@/redux/runSlice'
 import {resetSession} from '@/redux/sessionSlice'
-import {resetAccount} from '@/redux/accountSlice'
+import {clearAccountId} from '@/utils/account'
+import {clearJWT} from '@/utils/session'
+import React, {useEffect, useState} from 'react'
+import {Pressable, StyleSheet, Text, View} from 'react-native'
+import {useDispatch} from 'react-redux'
 
 export default function SettingsScreen({navigation}) {
   const dispatch = useDispatch()

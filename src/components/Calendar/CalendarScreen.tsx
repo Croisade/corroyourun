@@ -6,13 +6,11 @@ import {
   Agenda,
   CalendarProps,
 } from 'react-native-calendars'
-import CustomInput from '@/components/Common/CustomInput'
 import {COLORS} from '../theme'
 
 import MonthYearSelector from '@/components/Calendar/MonthYearSelector'
 import {getDatesAndRunIds} from '@/utils/date'
 import {fetchRuns} from '@/api/runs'
-import {useDispatch, useSelector} from 'react-redux'
 import merge from 'lodash/merge'
 
 const styles = StyleSheet.create({
@@ -43,7 +41,7 @@ const styles = StyleSheet.create({
   },
 })
 
-export default function CalendarScreen() {
+export default function CalendarScreen({navigation}) {
   const INITIAL_DATE = '2020-02-02'
   const [selected, setSelected] = useState(INITIAL_DATE)
   const monthFull = [
@@ -60,11 +58,6 @@ export default function CalendarScreen() {
     'November',
     'December',
   ]
-
-  const Year = [2020, 2021, 2022, 2023, 2024, 2025, 2026]
-
-  const runIsUpdated = useSelector(state => state.run.isUpdated)
-  const dispatch = useDispatch()
 
   const [runs, setRuns] = useState([])
 
@@ -88,12 +81,20 @@ export default function CalendarScreen() {
   const [currentDate, setCurrentDate] = useState(new Date())
   const [date] = useState(new Date())
 
-  const onDayPress: CalendarProps['onDayPress'] = useCallback(day => {
+  const onDayPress: CalendarProps['onDayPress'] = useCallback(async day => {
     console.log(day.dateString)
     setSelected(day.dateString)
   }, [])
 
-  // const date = new Date();
+  const onDayLongPress: CalendarProps['onDayLongPress'] = useCallback(
+    async day => {
+      console.log(day)
+      await fetchRuns()
+      navigation.navigate('RunsHome')
+    },
+    [navigation],
+  )
+
   const handleChevronUpPressMonth = () => {
     console.log(monthIncrement)
     setMonthIncrement(monthIncrement + 1)
@@ -195,9 +196,12 @@ export default function CalendarScreen() {
         // Maximum date that can be selected, dates after maxDate will be grayed out. Default = undefined
         maxDate={'2027-05-30'}
         // Handler which gets executed on day long press. Default = undefined
-        onDayLongPress={day => {
-          console.log('selected day', day)
-        }}
+
+        onDayLongPress={onDayLongPress}
+        // onDayLongPress={async day => {
+        //   console.log('selected day', day)
+        //   navigation.navigate('RunsHome')
+        // }}
         // Month format in calendar title. Formatting values: http://arshaw.com/xdate/#Formatting
         monthFormat={'MMMM yyyy'}
         // Handler which gets executed when visible month changes in calendar. Default = undefined
