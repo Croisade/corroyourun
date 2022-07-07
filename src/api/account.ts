@@ -9,9 +9,10 @@ export const getAccount = async (email?: string) => {
     accountId = await accountUtils.getAccountId()
   }
 
+  console.log('getAccount', email, accountId)
   return chimichanga({
     url: 'account/get',
-    method: 'GET',
+    method: 'POST',
     data: {
       ...(email && {email}),
       ...(accountId && {accountId}),

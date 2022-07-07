@@ -23,7 +23,6 @@ export default function SettingsScreen() {
   const dispatch = useDispatch()
   const sessionStatus = useSelector(state => state.session.status)
   const sessionError = useSelector(state => state.session.error)
-  const state = useSelector(state => state)
   const {height} = useWindowDimensions()
   const navigation = useNavigation()
 
@@ -59,7 +58,7 @@ export default function SettingsScreen() {
       dispatch(setAccountStatusToIdle())
       dispatch(setSessionStatusToIdle())
     }
-  }, [sessionStatus])
+  }, [dispatch, email, navigation, sessionError, sessionStatus])
 
   let content
   if (sessionStatus === 'loading') {

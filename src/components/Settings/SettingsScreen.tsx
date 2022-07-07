@@ -36,8 +36,13 @@ export default function SettingsScreen({navigation}) {
 
   useEffect(() => {
     async function fetchData() {
-      const account = await getAccount()
-      setAccountInfo(account.data)
+      try {
+        const account = await getAccount()
+
+        setAccountInfo(account.data)
+      } catch (err) {
+        console.log(err.response.data)
+      }
     }
 
     fetchData()
@@ -61,7 +66,7 @@ export default function SettingsScreen({navigation}) {
           <Text style={[styles.text, {fontSize: 20, fontWeight: 'bold'}]}>
             Profile
           </Text>
-          <URLText text={accountInfo.email} url={URL.issues} />
+          <Text style={styles.text}>{accountInfo.email}</Text>
         </Pressable>
 
         <Text onPress={signOut} style={{color: 'red'}}>
