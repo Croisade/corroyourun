@@ -43,7 +43,7 @@ export const getRun = async () => {
   })
 }
 
-export const fetchRuns = async (accountId?: string) => {
+export const fetchRuns = async (accountId?: string, date?: string) => {
   let id
   if (!accountId) {
     id = await accountUtils.getAccountId()
@@ -51,17 +51,21 @@ export const fetchRuns = async (accountId?: string) => {
     id = accountId
   }
   return chimichanga({
-    url: `/run/fetch/${id}`,
-    method: 'GET',
+    url: '/run/fetch',
+    method: 'POST',
+    data: {
+      accountId: id,
+      ...(date && {date: date.toString()}),
+    },
   })
 }
 
-export const deleteRun = async () => {
+export const deleteRun = async (runId: string) => {
   const accountId = await accountUtils.getAccountId()
   return chimichanga({
     url: '/run/delete',
     method: 'DELETE',
-    data: {},
+    data: {accountId, runId},
   })
 }
 

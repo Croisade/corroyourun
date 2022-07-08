@@ -14,7 +14,7 @@ export default function RunsRouter() {
         name="RunsHome"
         component={RunsScreen}
         options={{headerShown: false}}
-        initialParams={{isUpdated: false}}
+        initialParams={{timestamp: null}}
       />
       <RunsStack.Screen
         name="Timer"

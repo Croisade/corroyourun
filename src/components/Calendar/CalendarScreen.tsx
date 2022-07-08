@@ -90,7 +90,7 @@ export default function CalendarScreen({navigation}) {
     async day => {
       console.log(day)
       await fetchRuns()
-      navigation.navigate('RunsHome')
+      navigation.navigate('RunsHome', {timestamp: day.timestamp})
     },
     [navigation],
   )

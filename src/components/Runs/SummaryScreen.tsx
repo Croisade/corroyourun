@@ -10,7 +10,7 @@ import {
 import {COLORS} from '@/components/theme'
 import {Formik} from 'formik'
 import Button from '@/components/Common/Button'
-import {createRun, updateRun} from '@/api/runs'
+import {createRun, deleteRun, updateRun} from '@/api/runs'
 import {showMessage} from 'react-native-flash-message'
 import {
   setIsUpdatedFalse,
@@ -19,6 +19,8 @@ import {
   setIsUpdatedUpdating,
 } from '@/redux/runSlice'
 import {useDispatch} from 'react-redux'
+
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 
 export default function InformationScreen({route, navigation}) {
   //@TODO include which rtype of run in the api call
@@ -235,6 +237,17 @@ export default function InformationScreen({route, navigation}) {
                   </View>
 
                   <Button onPress={handleSubmit} text="Done" type="PRIMARY" />
+
+                  {runExist && runId ? (
+                    <Pressable
+                      onPress={async () => {
+                        await deleteRun(runId)
+                        dispatch(setIsUpdatedUpdated())
+                        navigation.navigate('RunsHome')
+                      }}>
+                      <Icon name="trash-can" size={60} color={COLORS.text} />
+                    </Pressable>
+                  ) : null}
                 </View>
               </View>
             )}

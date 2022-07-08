@@ -35,22 +35,38 @@ export default function HomeScreen({route, navigation}) {
     navigation.navigate('Timer')
   }
 
+  const {timestamp} = route.params
   // @TODO clean this up, calls server twice don't need 3 states for isUpdated, it's being checked by accountId
   useEffect(() => {
     console.log(runIsUpdated, accountId)
 
-    async function fetchData() {
+    async function fetchData(id: string, time?: string) {
       try {
-        const fetchedRuns = await fetchRuns(accountId)
-        setRuns(fetchedRuns.data)
+        if (time) {
+          console.log(time)
+          const fetchedRuns = await fetchRuns(id, time)
+          console.log(fetchedRuns.data)
+          setRuns(fetchedRuns.data)
+        } else {
+          const fetchedRuns = await fetchRuns(id)
+          setRuns(fetchedRuns.data)
+        }
       } catch (error) {
         console.log(error.response.data)
       }
     }
-    if (accountId !== '') {
-      fetchData()
+    if (timestamp) {
+      console.log('timestamp')
+      fetchData(accountId, timestamp)
+      console.log(runs)
+    } else {
+      console.log('I here, no timestamp')
+      fetchData(accountId)
     }
-  }, [accountId, dispatch, runIsUpdated])
+
+    // if (accountId !== '') {
+    // }
+  }, [accountId, dispatch, runIsUpdated, timestamp])
 
   return (
     <ScrollView style={[styles.container, {height: height}]}>
