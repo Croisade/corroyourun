@@ -5,6 +5,7 @@ import * as utils from '@/utils/session'
 const initialState = {
   token: '',
   refreshToken: '',
+  isAuthenticated: false,
   status: 'idle',
   error: null as string | null,
 }
@@ -23,6 +24,12 @@ export const sessionSlice = createSlice({
     },
     setSessionStatusToIdle: state => {
       state.status = 'idle'
+    },
+    isAuthenticated: state => {
+      state.isAuthenticated = true
+    },
+    isNotAuthenticated: state => {
+      state.isAuthenticated = false
     },
   },
   extraReducers(builder) {
@@ -60,7 +67,12 @@ export const sessionSlice = createSlice({
   },
 })
 
-export const {setSessionStatusToIdle, resetSession} = sessionSlice.actions
+export const {
+  setSessionStatusToIdle,
+  resetSession,
+  isNotAuthenticated,
+  isAuthenticated,
+} = sessionSlice.actions
 
 interface Login {
   email: string

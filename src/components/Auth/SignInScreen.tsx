@@ -14,7 +14,11 @@ import {COLORS} from '@/components/theme'
 import {useNavigation} from '@react-navigation/native'
 import {Formik} from 'formik'
 import {useDispatch, useSelector} from 'react-redux'
-import {login, setSessionStatusToIdle} from '@/redux/sessionSlice'
+import {
+  isAuthenticated,
+  login,
+  setSessionStatusToIdle,
+} from '@/redux/sessionSlice'
 import {getAccount, setAccountStatusToIdle} from '@/redux/accountSlice'
 import {showMessage} from 'react-native-flash-message'
 
@@ -43,7 +47,7 @@ export default function SettingsScreen() {
 
   useEffect(() => {
     if (sessionStatus === 'succeeded') {
-      console.log('email', email)
+      dispatch(isAuthenticated())
       dispatch(getAccount(email))
       dispatch(setAccountStatusToIdle())
       dispatch(setSessionStatusToIdle())
