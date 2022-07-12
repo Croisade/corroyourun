@@ -1,18 +1,19 @@
+import {COLORS} from '@/components/theme'
+import {doRegister, setSessionStatusToIdle} from '@/redux/sessionSlice'
 import {useNavigation} from '@react-navigation/native'
+import {Formik} from 'formik'
 import React, {useEffect} from 'react'
 import {
-  View,
-  Text,
-  StyleSheet,
-  ScrollView,
-  TextInput,
   ActivityIndicator,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TextInput,
+  View,
 } from 'react-native'
-import {Formik} from 'formik'
-import {COLORS} from '@/components/theme'
-import CustomButton from '../Common/Button'
 import {useDispatch, useSelector} from 'react-redux'
-import {doRegister, setSessionStatusToIdle} from '@/redux/sessionSlice'
+import * as Yup from 'yup'
+import CustomButton from '../Common/Button'
 
 export default function SignUpScreen() {
   const dispatch = useDispatch()
@@ -23,8 +24,8 @@ export default function SignUpScreen() {
 
   useEffect(() => {
     if (sessionStatus === 'succeeded') {
+      dispatch(setSessionStatusToIdle())
       navigation.navigate('SignIn')
-      return dispatch(setSessionStatusToIdle())
     }
   }, [sessionStatus, navigation, dispatch])
 
@@ -39,6 +40,11 @@ export default function SignUpScreen() {
 
     navigation.navigate('SignIn')
   }
+
+  const SignupSchema = Yup.object().shape({
+    email: Yup.string().email('Invalid email').required('Required'),
+    password: Yup.string().required('Required'),
+  })
   let content
   if (sessionStatus === 'loading') {
     content = (
@@ -52,14 +58,25 @@ export default function SignUpScreen() {
         <Text style={styles.title}>Create Account</Text>
         <Formik
           initialValues={{email: '', password: ''}}
+          validationSchema={SignupSchema}
           onSubmit={(values, {setSubmitting}) => {
             dispatch(
               doRegister({email: values.email, password: values.password}),
             )
             setSubmitting(false)
           }}>
-          {({handleChange, handleBlur, handleSubmit, values}) => (
+          {({
+            errors,
+            touched,
+            handleChange,
+            handleBlur,
+            handleSubmit,
+            values,
+          }) => (
             <View style={{width: '80%'}}>
+              {touched.email && errors.email && (
+                <Text style={styles.error}>{errors.email}</Text>
+              )}
               <Text style={styles.text}>Email</Text>
               <TextInput
                 style={styles.input}
@@ -67,6 +84,9 @@ export default function SignUpScreen() {
                 onBlur={handleBlur('email')}
                 value={values.email}
               />
+              {touched.password && errors.password && (
+                <Text style={styles.error}>{errors.password}</Text>
+              )}
               <Text style={styles.text}>Password</Text>
               <TextInput
                 style={styles.input}
@@ -125,6 +145,11 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     marginVertical: 5,
     color: COLORS.text,
+  },
+  error: {
+    color: 'red',
+    fontWeight: 'bold',
+    fontSize: 16,
   },
   text: {
     color: COLORS.text,

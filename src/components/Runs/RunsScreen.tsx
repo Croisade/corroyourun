@@ -43,7 +43,7 @@ export default function HomeScreen({route, navigation}) {
     async function fetchData(id: string, time?: string) {
       try {
         if (time) {
-          console.log(time)
+          console.log('in fetchData Time', time)
           const fetchedRuns = await fetchRuns(id, time)
           console.log(fetchedRuns.data)
           setRuns(fetchedRuns.data)

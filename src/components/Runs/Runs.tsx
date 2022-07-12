@@ -7,7 +7,7 @@ import {
   Pressable,
 } from 'react-native'
 import {COLORS} from '@/components/theme'
-import {fromUnixToDateString} from '@/utils/date'
+import {fromIsoToDateString, getYearMonthDay} from '@/utils/date'
 
 import {useNavigation} from '@react-navigation/native'
 
@@ -29,8 +29,8 @@ export type Runs = {
   incline: number
   runId: string
   accountId: string
-  createdAt: CreatedAt
-  updatedAt: UpdatedAt
+  createdAt: string
+  updatedAt: string
 }
 
 export default function Runs({
@@ -54,7 +54,7 @@ export default function Runs({
     })
   }
 
-  const createdAt = fromUnixToDateString(runs.createdAt.T)
+  const createdAt = fromIsoToDateString(runs.createdAt)
 
   return (
     <Pressable

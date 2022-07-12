@@ -6,15 +6,19 @@ export const fromUnixToDateString = (unix: number) => {
   return new Date(unix * 1000).toDateString()
 }
 
+export const fromIsoToDateString = (date: string) => {
+  return new Date(date).toDateString()
+}
+
 export const fromUnixToISOString = (unix: number) => {
   return new Date(unix * 1000).toISOString()
 }
 
-const getYearMonthDay = (string: string) => {
+export const getYearMonthDay = (string: string) => {
   return string.slice(0, 10)
 }
 
-const getMarkedCalendarDates = flowRight(getYearMonthDay, fromUnixToISOString)
+const getMarkedCalendarDates = flowRight(getYearMonthDay)
 
 // @TODO dates should come from backend
 
@@ -23,7 +27,7 @@ export const getDatesAndRunIds = (runs: Runs[]) => {
     return {
       ...pv,
       ...{
-        [getMarkedCalendarDates(cv.createdAt.T)]: {
+        [getMarkedCalendarDates(cv.createdAt)]: {
           marked: true,
           dotColor: COLORS.primary,
         },

@@ -43,20 +43,25 @@ export const getRun = async () => {
   })
 }
 
-export const fetchRuns = async (accountId?: string, date?: string) => {
+export const fetchRuns = async (accountId?: string, date?: number) => {
   let id
   if (!accountId) {
     id = await accountUtils.getAccountId()
   } else {
     id = accountId
   }
+  console.log('fetchRuns api date', date)
+
+  const data = {
+    accountId: id,
+    ...(date && {date: date.toString()}),
+  }
+  console.log(data)
+
   return chimichanga({
     url: '/run/fetch',
     method: 'POST',
-    data: {
-      accountId: id,
-      ...(date && {date: date.toString()}),
-    },
+    data: data,
   })
 }
 

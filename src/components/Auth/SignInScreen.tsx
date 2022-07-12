@@ -33,7 +33,6 @@ export default function SettingsScreen() {
   const onSignInPressed = () => {
     console.warn('Sign in')
     //validation user
-
     navigation.navigate('Home')
   }
 
@@ -88,14 +87,13 @@ export default function SettingsScreen() {
           <Formik
             initialValues={{email: '', password: ''}}
             onSubmit={(values, {setSubmitting}) => {
-              // navigation.navigate('Home')
               setEmail(values.email)
               dispatch(login({email: values.email, password: values.password}))
               setSubmitting(false)
             }}>
             {({handleChange, handleBlur, handleSubmit, values}) => (
               <View style={styles.form}>
-                <Text style={styles.text}>Username</Text>
+                <Text style={styles.text}>Email</Text>
                 <TextInput
                   style={styles.input}
                   onChangeText={handleChange('email')}

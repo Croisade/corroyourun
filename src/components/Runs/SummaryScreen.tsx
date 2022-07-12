@@ -1,23 +1,19 @@
+import {createRun, deleteRun, updateRun} from '@/api/runs'
+import Button from '@/components/Common/Button'
+import {COLORS} from '@/components/theme'
+import {setIsUpdatedUpdated, setIsUpdatedUpdating} from '@/redux/runSlice'
+import {Formik} from 'formik'
 import React, {useState} from 'react'
+import * as Yup from 'yup'
 import {
-  View,
-  Text,
-  StyleSheet,
-  TextInput,
   Pressable,
   ScrollView,
+  StyleSheet,
+  Text,
+  TextInput,
+  View,
 } from 'react-native'
-import {COLORS} from '@/components/theme'
-import {Formik} from 'formik'
-import Button from '@/components/Common/Button'
-import {createRun, deleteRun, updateRun} from '@/api/runs'
 import {showMessage} from 'react-native-flash-message'
-import {
-  setIsUpdatedFalse,
-  setIsUpdatedTrue,
-  setIsUpdatedUpdated,
-  setIsUpdatedUpdating,
-} from '@/redux/runSlice'
 import {useDispatch} from 'react-redux'
 
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
@@ -65,6 +61,13 @@ export default function InformationScreen({route, navigation}) {
     runExist?: boolean
     runId?: string
   } = route.params
+
+  const SummarySchema = Yup.object().shape({
+    distance: Yup.number(),
+    speed: Yup.number(),
+    lap: Yup.number(),
+    incline: Yup.number(),
+  })
 
   return (
     <ScrollView>
@@ -135,6 +138,7 @@ export default function InformationScreen({route, navigation}) {
               lap: lap ? lap.toString() : '',
               incline: incline ? incline.toString() : '',
             }}
+            validationSchema={SummarySchema}
             onSubmit={async (values, {setSubmitting}) => {
               const timeString = time.toString()
               try {
@@ -192,11 +196,24 @@ export default function InformationScreen({route, navigation}) {
               navigation.navigate('RunsHome')
               dispatch(setIsUpdatedUpdated())
             }}>
-            {({handleBlur, handleSubmit, values, setFieldValue}) => (
+            {({
+              errors,
+              touched,
+              handleBlur,
+              handleSubmit,
+              values,
+              setFieldValue,
+            }) => (
               <View style={{flexDirection: 'column'}}>
                 <View style={{flex: 1}}>
+                  {errors.distance && touched.distance && (
+                    <Text style={styles.error}>
+                      {'Input Parameter must be a number'}
+                    </Text>
+                  )}
                   <View style={styles.formView}>
                     <Text style={styles.text}>Distance</Text>
+
                     <TextInput
                       style={styles.input}
                       onChangeText={value => setFieldValue('distance', value)}
@@ -205,6 +222,11 @@ export default function InformationScreen({route, navigation}) {
                       placeholder="Distance"
                     />
                   </View>
+                  {errors.speed && touched.speed && (
+                    <Text style={styles.error}>
+                      {'Input Parameter must be a number'}
+                    </Text>
+                  )}
                   <View style={styles.formView}>
                     <Text style={styles.text}>Speed</Text>
                     <TextInput
@@ -215,6 +237,12 @@ export default function InformationScreen({route, navigation}) {
                       placeholder="Speed"
                     />
                   </View>
+                  {errors.lap && touched.lap && (
+                    <Text style={styles.error}>
+                      {'Input Parameter must be a number'}
+                    </Text>
+                  )}
+
                   <View style={styles.formView}>
                     <Text style={styles.text}>Lap</Text>
                     <TextInput
@@ -225,6 +253,12 @@ export default function InformationScreen({route, navigation}) {
                       placeholder="Lap"
                     />
                   </View>
+                  {errors.incline && touched.incline && (
+                    <Text style={styles.error}>
+                      {'Input Parameter must be a number'}
+                    </Text>
+                  )}
+
                   <View style={styles.formView}>
                     <Text style={styles.text}>Incline</Text>
                     <TextInput
@@ -302,6 +336,13 @@ const styles = StyleSheet.create({
   },
   text: {
     color: COLORS.text,
+    fontSize: 20,
+    fontWeight: 'bold',
+    marginTop: 20,
+    marginBottom: 7,
+  },
+  error: {
+    color: 'red',
     fontSize: 20,
     fontWeight: 'bold',
     marginTop: 20,
